@@ -2,12 +2,14 @@
     "C_Cpp.default.cppStandard": "c++23",
     "C_Cpp.errorSquiggles": "enabled",
     "C_Cpp.autocomplete": "default",
-    "C_Cpp.codeFolding": "enabled",
-    // "editor.rulers": [
-    //     119
-    // ],
+    "C_Cpp.exclusionPolicy": "checkFolders",
     "editor.formatOnSave": true,
-    "files.associations": {
-        "*.tpp": "cpp"
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/build": true,
+        "**/dist": true
     },
+    "files.exclude": {
+        "**/CMakeLists.txt": false
+    }
 }

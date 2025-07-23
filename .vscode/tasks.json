@@ -93,6 +93,95 @@
             ],
             "group": "build",
             "dependsOrder": "sequence"
+        },
+        {
+            "label": "Test: Clean build_test",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-Command",
+                "if (Test-Path '${workspaceFolder}/build_test') { Remove-Item -Recurse -Force '${workspaceFolder}/build_test' }"
+            ],
+            "problemMatcher": [],
+            "group": "build"
+        },
+        {
+            "label": "Test: Configure (GoogleTest)",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "-S",
+                "${workspaceFolder}/ExternLib/test",
+                "-B",
+                "${workspaceFolder}/build_test",
+                "-G",
+                "Ninja",
+                "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+            ],
+            "options": {
+                "env": {
+                    "PATH": "C:/msys64/ucrt64/bin;${env:PATH}"
+                }
+            },
+            "group": "build",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always"
+            }
+        },
+        {
+            "label": "Test: Build",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build",
+                "${workspaceFolder}/build_test"
+            ],
+            "group": "build",
+            "dependsOn": "Test: Configure (GoogleTest)",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always"
+            }
+        },
+        {
+            "label": "Test: Run All (CTest)",
+            "type": "shell",
+            "command": "ctest",
+            "args": [
+                "--output-on-failure"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/build_test"
+            },
+            "group": "test",
+            "dependsOn": "Test: Build",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always"
+            }
+        },
+        {
+            "label": "Test: Rebuild & Run All",
+            "dependsOn": [
+                "Test: Clean build_test",
+                "Test: Configure (GoogleTest)",
+                "Test: Build",
+                "Test: Run All (CTest)"
+            ],
+            "group": "build",
+            "dependsOrder": "sequence",
+            "problemMatcher": []
+        },
+        {
+            "label": "Full Clean",
+            "dependsOn": [
+                "Clean",
+                "Test: Clean build_test",
+            ],
+            "group": "build",
+            "dependsOrder": "sequence",
+            "problemMatcher": []
         }
     ]
 }
