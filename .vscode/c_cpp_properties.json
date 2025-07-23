@@ -3,8 +3,8 @@
         {
             "name": "MSYS2 UCRT64",
             "includePath": [
-                "${workspaceFolder}", // Project root
-                "${workspaceFolder}/**", // All subdirectories
+                "${workspaceFolder}",
+                "${workspaceFolder}/**",
                 "C:/msys64/ucrt64/include/c++/14.2.0",
                 "C:/msys64/ucrt64/include/c++/14.2.0/x86_64-w64-mingw32",
                 "C:/msys64/ucrt64/include/c++/14.2.0/backward",
