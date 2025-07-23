@@ -1,0 +1,8 @@
+# --- Build Artifacts ---
+/out
+/build
+*.exe               # Compiled binaries
+*.dll               # Dynamic link libraries
+
+# --- Logs & Debug Files ---
+*.log

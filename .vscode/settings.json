@@ -1,0 +1,13 @@
+{
+    "C_Cpp.default.cppStandard": "c++23",
+    "C_Cpp.errorSquiggles": "enabled",
+    "C_Cpp.autocomplete": "default",
+    "C_Cpp.codeFolding": "enabled",
+    // "editor.rulers": [
+    //     119
+    // ],
+    "editor.formatOnSave": true,
+    "files.associations": {
+        "*.tpp": "cpp"
+    },
+}

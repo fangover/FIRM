@@ -1,0 +1,98 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "CMake: Configure (Ninja)",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "-S",
+                "${workspaceFolder}",
+                "-B",
+                "${workspaceFolder}/build",
+                "-G",
+                "Ninja" // Change from MinGW Makefiles to Ninja
+            ],
+            "options": {
+                "env": {
+                    "PATH": "C:/msys64/ucrt64/bin;${env:PATH}"
+                }
+            },
+            "group": "build",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always"
+            }
+        },
+        {
+            "label": "CMake: Build (Ninja)",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build",
+                "${workspaceFolder}/build",
+                "--config",
+                "Debug"
+            ],
+            "group": "build",
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "dependsOn": "CMake: Configure (Ninja)"
+        },
+        {
+            "label": "Run",
+            "type": "shell",
+            "command": "${workspaceFolder}/build/bin/main.exe",
+            "group": "build",
+            "dependsOn": "CMake: Build (Ninja)",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "Build & Run",
+            "dependsOn": [
+                "CMake: Build (Ninja)",
+                "Run"
+            ],
+            "group": "build",
+            "problemMatcher": [],
+            "dependsOrder": "sequence"
+        },
+        {
+            "label": "Clean",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-Command",
+                "if (Test-Path ${workspaceFolder}/build) { Remove-Item -Recurse -Force ${workspaceFolder}/build }"
+            ],
+            "group": "build",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always"
+            }
+        },
+        {
+            "label": "Rebuild",
+            "dependsOn": [
+                "Clean",
+                "CMake: Configure (Ninja)",
+                "CMake: Build (Ninja)"
+            ],
+            "group": "build",
+            "dependsOrder": "sequence"
+        },
+        {
+            "label": "Rebuild & Run",
+            "dependsOn": [
+                "Rebuild",
+                "Run"
+            ],
+            "group": "build",
+            "dependsOrder": "sequence"
+        }
+    ]
+}
