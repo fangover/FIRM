@@ -1,9 +1,8 @@
-#include <filestreamhandle.h>
+#include <basicstdlib.h>
 #include <eresult.h>
+#include <filestreamhandle.h>
 
-#include "globalEnum.h"
-#include "basicstdlib.h"
-
+#include "core/include/globalEnum.h"
 #include "core/assemblies/strategies/interface/idetector.h"
 #include "core/assemblies/strategies/scalpingm1/include/detector.h"
 
