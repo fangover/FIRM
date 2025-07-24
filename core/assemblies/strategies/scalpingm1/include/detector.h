@@ -1,26 +1,19 @@
 #ifndef CEEA0A94_86C6_404B_88A6_FE2CC618D48F
 #define CEEA0A94_86C6_404B_88A6_FE2CC618D48F
-#include <basicstdlib.h>
-#include <eresultvalue.h>
-#include <globalEnum.h>
-#include "../../base/interface/idetector.h"
+
+#include "core/assemblies/strategies/interface/idetector.h"
+
+template <typename T>
+class EResultValue;
+struct Signal;
 
 namespace ScalpingM1
 {
-    class Dectector : public Strategies::IDetector
+    class Detector : public Strategies::IDetector
     {
     public:
-        Dectector() {}
-        ~Dectector() {}
-        EResultValue<Signal> detect() const override
-        {
-            LOG_ENTRY;
-
-            Signal signal;
-            signal.direction = Direction::Buy;
-            signal.reason = "Nani";
-            return EResultValue<Signal>::ok(signal);
-        };
+        virtual ~Detector();
+        virtual EResultValue<Signal> detect() const override;
     };
 
 } // namespace ScalpingM1

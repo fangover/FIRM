@@ -1,11 +1,13 @@
-file(GLOB_RECURSE CORE_SOURCES
-    assemblies/strategies/**/*.cpp
-)
+project(Core)
 
-add_library(core STATIC ${CORE_SOURCES})
+# Add strategies (and any other submodules later)
+add_subdirectory(assemblies/strategies)
 
-target_include_directories(core PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/assemblies/strategies/base/interface
-    ${CMAKE_CURRENT_SOURCE_DIR}/assemblies/strategies/base/include
-    ${CMAKE_CURRENT_SOURCE_DIR}/assemblies/strategies/scalpingm1/include
+# Define Core as an INTERFACE target
+add_library(Core INTERFACE)
+
+# Propagate includes and libraries
+target_link_libraries(Core INTERFACE
+    Strategies
+    ExternalLib
 )

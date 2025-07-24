@@ -11,8 +11,7 @@ namespace Strategies
     class IDetector
     {
     public:
-        IDetector() {}
-        ~IDetector() {}
+        virtual ~IDetector() {}
         virtual EResultValue<Signal> detect() const = 0;
     };
 } // namespace Strategies
