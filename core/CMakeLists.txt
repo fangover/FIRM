@@ -8,6 +8,7 @@ add_library(Core INTERFACE)
 
 target_include_directories(Core INTERFACE
     ${CMAKE_SOURCE_DIR}/core/include
+    ${CMAKE_SOURCE_DIR}/core
 )
 
 # Propagate includes and libraries

@@ -1,6 +1,7 @@
 #ifndef LOG_H
 #define LOG_H
 
+#include "estring.h"
 #include "logger.h"
 
 enum class ELvl : int

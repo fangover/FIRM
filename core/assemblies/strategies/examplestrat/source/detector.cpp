@@ -4,7 +4,7 @@
 
 #include "../include/detector.h"
 
-using namespace ScalpingM1;
+using namespace ExampleStrat;
 
 Detector::~Detector() = default;
 

@@ -1,11 +1,11 @@
 project(Strategies)
 
-add_subdirectory(scalpingm1)
+add_subdirectory(ExampleStrat)
 
 add_library(Strategies INTERFACE)
 
 target_link_libraries(Strategies INTERFACE
-    ScalpingM1
+    ExampleStrat
 )
 
 target_include_directories(Strategies INTERFACE
