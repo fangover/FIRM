@@ -23,10 +23,10 @@ add_compile_options(
 )
 
 # Global include paths
-include_directories(${PROJECT_SOURCE_DIR}/Engine/include)
+include_directories(${PROJECT_SOURCE_DIR}/engine/include)
 include_directories(${PROJECT_SOURCE_DIR}/ExternalLib/include)
 
 # Add subdirectories
 add_subdirectory(ExternalLib)
 add_subdirectory(core)
-add_subdirectory(Engine)
+add_subdirectory(engine)
