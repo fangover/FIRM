@@ -6,19 +6,20 @@
 
 enum class ELvl : int
 {
-    eNONE = 0,
-    eINFO = 1,
-    eSUMMARY = 2,
-    eDETAILS = 3,
-    eDEBUG = 4
+    eAlways = 0,
+    eInfo = 1,
+    eSummary = 2,
+    eDetails = 3,
+    eDebug = 4,
+    eFull = 5
 };
 
-constexpr ELvl LOGLEVEL = ELvl::eINFO;
+constexpr ELvl LOGLEVEL = ELvl::eInfo;
 
 // Logging Macros
 // #define LOG_ENTRY ScopeLogger __scope_logger__(__FILE__, __LINE__, __func__)
 #define LOG_ENTRY [] {                                \
-    if (LOGLEVEL >= ELvl::eDEBUG)                    \
+    if (LOGLEVEL >= ELvl::eFull)                    \
         ScopeLogger __scope_logger__(__FILE__, __LINE__, __func__); }()
 
 #define LOG(...) Logger::instance().logMessage("LOG", __FILE__, __LINE__, __func__, ##__VA_ARGS__)
