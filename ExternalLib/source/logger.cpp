@@ -44,6 +44,15 @@ void Logger::logMessage(const char *cpLevel,
     }
 }
 
+void Logger::logMessage(const char *level,
+                        const char *file,
+                        int line,
+                        const char *func,
+                        const EString &msg)
+{
+    logMessage(level, file, line, func, msg.data());
+}
+
 std::string Logger::formatMessage(const char *fmt, va_list args)
 {
     va_list args_copy;

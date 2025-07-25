@@ -5,6 +5,7 @@
 #include <mutex>
 #include <filesystem>
 #include <cstdarg>
+#include "estring.h"
 
 class Logger
 {
@@ -22,6 +23,11 @@ public:
                            int,
                            const char *,
                            const char * = "", ...);
+    static void logMessage(const char *level,
+                           const char *file,
+                           int line,
+                           const char *func,
+                           const EString &msg);
 
 private:
     static std::string formatMessage(const char *, va_list);

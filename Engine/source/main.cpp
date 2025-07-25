@@ -14,10 +14,10 @@ int main()
     std::cout << static_cast<int>(tes.direction) << " " << tes.reason;
 
     int num = 123;
-    LOG(EString{}.sprintf("Int: {}", toStr(num)).data());
+    LOG(EString{}.sprintf("Int: %d", num));
 
     std::string text = "Hello";
-    LOG(EString{}.sprintf("String: {}", toStr(text)).data());
+    LOG(EString{}.sprintf("String: %s", toStr(text).data()));
 
     return 0;
 }
