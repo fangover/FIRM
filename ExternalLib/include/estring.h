@@ -35,8 +35,7 @@ auto toStr(const T &value) -> decltype(std::ostringstream{} << value, std::strin
 }
 
 template <typename T>
-std::enable_if_t<std::is_enum_v<T> && has_toUser_v<T>, std::string>
-toStr(T value)
+std::enable_if_t<std::is_enum_v<T> && has_toUser_v<T>, std::string> toStr(T value)
 {
     return toUser(value);
 }
@@ -57,7 +56,7 @@ public:
         return *this;
     }
 
-    operator const std::string &() const { return value; }
+    inline operator const std::string &() const { return value; }
     const char *data() const { return value.data(); }
 };
 
