@@ -72,7 +72,12 @@
 			"condition_variable": "cpp",
 			"mutex": "cpp",
 			"bitset": "cpp",
-			"regex": "cpp"
+			"regex": "cpp",
+			"map": "cpp",
+			"set": "cpp",
+			"unordered_set": "cpp",
+			"shared_mutex": "cpp",
+			"cassert": "cpp"
 		}
 	}
 }

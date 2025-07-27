@@ -1,6 +1,5 @@
-#include <basicstdlib.h>
 #include <eresultvalue.h>
-#include "core/include/globalEnum.h"
+#include <core/include/globalEnum.h>
 
 #include "../include/detector.h"
 

@@ -3,6 +3,8 @@
 /build
 *.exe               # Compiled binaries
 *.dll               # Dynamic link libraries
+CMakeFiles/
+CMakeCache.txt
 
 # --- Logs & Debug Files ---
 *.log

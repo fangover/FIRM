@@ -1,18 +1,10 @@
-project(Core)
-
-# Add strategies (and any other submodules later)
-add_subdirectory(assemblies/strategies)
-
-# Define Core as an INTERFACE target
 add_library(Core INTERFACE)
 
-target_include_directories(Core INTERFACE
-    ${CMAKE_SOURCE_DIR}/core/include
-    ${CMAKE_SOURCE_DIR}/core
+target_include_directories(Core
+    INTERFACE ${CMAKE_SOURCE_DIR}
+              ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-# Propagate includes and libraries
-target_link_libraries(Core INTERFACE
-    Strategies
-    ExternalLib
-)
+add_subdirectory(strategies)
+
+set_target_properties(Core PROPERTIES FOLDER "Core")

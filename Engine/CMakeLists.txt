@@ -1,21 +1,21 @@
-file(GLOB_RECURSE engine_SOURCES
-    ${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp
+add_library(Engine STATIC
+    source/engine.cpp
 )
 
-add_executable(engine ${engine_SOURCES})
-
-target_include_directories(engine PRIVATE
-    ${PROJECT_SOURCE_DIR}
-    ${PROJECT_SOURCE_DIR}/ExternalLib/include
-    ${PROJECT_SOURCE_DIR}/engine/include
+target_include_directories(Engine
+    PUBLIC 
+        ${CMAKE_SOURCE_DIR}
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-target_link_libraries(engine
-    Core
-    ExternalLib
+target_link_libraries(Engine
+    PUBLIC Core
+           ExternLib
+           ExampleStrat1
 )
 
-set_target_properties(engine PROPERTIES
-    OUTPUT_NAME "main"
-    RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin
+target_precompile_headers(Engine
+    PRIVATE ${CMAKE_SOURCE_DIR}/cmake/pch/pch.h
 )
+
+set_target_properties(Engine PROPERTIES FOLDER "Engine")

@@ -3,7 +3,7 @@
 #include <fstream>
 #include <string>
 #include <filesystem>
-#include <log.h>
+#include "../include/log.h"
 
 #include "../include/FileStreamHandle.h"
 
