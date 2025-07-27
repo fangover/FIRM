@@ -1,11 +1,15 @@
-add_library(StrategyInterface INTERFACE)
+add_library(CoreStrategies INTERFACE)
 
-target_include_directories(StrategyInterface
-    INTERFACE ${CMAKE_SOURCE_DIR}
-              ${CMAKE_CURRENT_SOURCE_DIR}/interface
+target_include_directories(CoreStrategies INTERFACE 
+    ${CMAKE_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/interface
 )
 
 add_subdirectory(example)
-add_subdirectory(examplestrat2)
 
-set_target_properties(StrategyInterface PROPERTIES FOLDER "Core/Strategies")
+target_link_libraries(CoreStrategies INTERFACE
+    CoreStrategiesExample
+)
+
+set_target_properties(CoreStrategies PROPERTIES FOLDER "Core/Strategies")
+
