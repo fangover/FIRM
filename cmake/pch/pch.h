@@ -39,6 +39,7 @@
 
 // externallib
 #include <log.h>
+#include <estring.h>
 #include <eresult.h>
 #include <eresultvalue.h>
 
