@@ -5,7 +5,7 @@ target_include_directories(StrategyInterface
               ${CMAKE_CURRENT_SOURCE_DIR}/interface
 )
 
-add_subdirectory(examplestrat)
+add_subdirectory(example)
 add_subdirectory(examplestrat2)
 
 set_target_properties(StrategyInterface PROPERTIES FOLDER "Core/Strategies")

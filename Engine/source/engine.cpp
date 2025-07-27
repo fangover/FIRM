@@ -1,6 +1,6 @@
 #include <engine/engine.h>
 #include <core/include/globalEnum.h>
-#include <core/strategies/examplestrat/include/detector.h>
+#include <core/strategies/example/include/detector.h>
 
 namespace engine
 {
