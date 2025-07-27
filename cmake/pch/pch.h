@@ -1,7 +1,5 @@
 #ifndef B532D695_3C29_4A9F_B66B_D6C8F681EDC4
 #define B532D695_3C29_4A9F_B66B_D6C8F681EDC4
-#ifndef MAINAPP_INCLUDE_BASICSTDLIB_H
-#define MAINAPP_INCLUDE_BASICSTDLIB_H
 
 // ==== Standard Library ====
 #include <iostream>
@@ -42,7 +40,5 @@
 #include <estring.h>
 #include <eresult.h>
 #include <eresultvalue.h>
-
-#endif // MAINAPP_INCLUDE_BASICSTDLIB_H
 
 #endif /* B532D695_3C29_4A9F_B66B_D6C8F681EDC4 */
