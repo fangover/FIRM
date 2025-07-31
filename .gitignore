@@ -5,6 +5,10 @@
 *.dll               # Dynamic link libraries
 CMakeFiles/
 CMakeCache.txt
+imgui.ini
+
+# --- Dependency ---
+dependency
 
 # --- Logs & Debug Files ---
 *.log

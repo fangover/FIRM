@@ -77,7 +77,10 @@
 			"set": "cpp",
 			"unordered_set": "cpp",
 			"shared_mutex": "cpp",
-			"cassert": "cpp"
+			"cassert": "cpp",
+			"any": "cpp",
+			"list": "cpp",
+			"cinttypes": "cpp"
 		}
 	}
 }

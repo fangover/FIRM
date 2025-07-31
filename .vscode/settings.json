@@ -10,4 +10,10 @@
     "files.associations": {
         "*.tpp": "cpp"
     },
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/build": true,
+        "**/dist": true
+    },
+    "C_Cpp.exclusionPolicy": "checkFolders",
 }

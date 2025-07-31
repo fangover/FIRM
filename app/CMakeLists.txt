@@ -1,18 +1,24 @@
-add_executable(main
-    source/launcher.cpp
-    source/main.cpp
+file(GLOB_RECURSE APP_SOURCES CONFIGURE_DEPENDS
+    "*.cpp"
+    "*.h"
 )
 
-target_include_directories(main PRIVATE 
-    ${CMAKE_SOURCE_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/include
+add_executable(main ${APP_SOURCES})
+
+target_include_directories(main PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${PROJECT_SOURCE_DIR}/Core
+    ${PROJECT_SOURCE_DIR}/ExternLib/include
 )
 
 target_link_libraries(main PRIVATE 
-    Engine
-    Renderer
+    engine
+    ExternLib
 )
 
-target_precompile_headers(main PRIVATE ${CMAKE_SOURCE_DIR}/cmake/pch/pch.h)
+target_precompile_headers(main PRIVATE "${CMAKE_SOURCE_DIR}/cmake/pch/pch.h")
 
-set_target_properties(main PROPERTIES FOLDER "App" RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set_target_properties(main PROPERTIES
+    FOLDER "App"
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+)

@@ -52,6 +52,7 @@ class EString
 public:
     EString() = default;
     EString(std::string str) : m_value(std::move(str)) {}
+    EString(const char *str) : m_value(str ? str : "") {}
 
     template <typename... Args>
     EString &sprintf(const std::string &fmt, Args &&...args)

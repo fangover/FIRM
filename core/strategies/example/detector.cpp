@@ -1,7 +1,6 @@
-#include <eresultvalue.h>
-#include <core/include/globalEnum.h>
+#include <common/globalEnum.h>
 
-#include "../include/detector.h"
+#include "detector.h"
 
 using namespace ExampleStrat;
 
