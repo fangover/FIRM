@@ -80,7 +80,8 @@
 			"cassert": "cpp",
 			"any": "cpp",
 			"list": "cpp",
-			"cinttypes": "cpp"
+			"cinttypes": "cpp",
+			"typeindex": "cpp"
 		}
 	}
 }

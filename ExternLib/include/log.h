@@ -14,7 +14,7 @@ enum class ELvl : int
     eFull = 5
 };
 
-constexpr ELvl LOGLEVEL = ELvl::eInfo;
+constexpr ELvl LOGLEVEL = ELvl::eAlways;
 
 // Logging Macros
 // #define LOG_ENTRY ScopeLogger __scope_logger__(__FILE__, __LINE__, __func__)

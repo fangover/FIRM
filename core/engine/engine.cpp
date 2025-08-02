@@ -1,4 +1,7 @@
 #include <engine.h>
+
+#include <eglobalregistry.h>
+
 #include <modules/gui/manager.h>
 #include <common/globalEnum.h>
 #include <strategies/example/detector.h>
@@ -9,7 +12,8 @@ namespace engine
 {
     void Engine::initialize()
     {
-        std::cout << "[Engine] Initialized.\n";
+        LOG("[Engine] Initialized.");
+
         m_pGuiManager = std::make_unique<Gui::Manager>();
 
         for (auto &panel : Gui::PanelRegistry::getDefaultPanels())

@@ -8,7 +8,6 @@ Detector::~Detector() = default;
 
 EResultValue<Signal> Detector::detect() const
 {
-
     LOG_ENTRY;
 
     Signal signal;
