@@ -10,6 +10,6 @@
         "**/dist": true
     },
     "files.exclude": {
-        "**/CMakeLists.txt": true
+        "**/CMakeLists.txt": false
     }
 }

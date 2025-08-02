@@ -14,7 +14,10 @@
             ],
             "defines": [],
             "compilerPath": "C:/msys64/ucrt64/bin/g++.exe",
-            "compileCommands": "${workspaceFolder}/build/compile_commands.json",
+            "compileCommands": [
+                "${workspaceFolder}/build/compile_commands.json",
+                "${workspaceFolder}/build_test/compile_commands.json",
+            ],
             "cppStandard": "c++23",
             "intelliSenseMode": "windows-gcc-x64",
             "compilerArgs": [

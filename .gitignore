@@ -1,6 +1,7 @@
 # --- Build Artifacts ---
 /out
 /build
+build_gtest
 *.exe               # Compiled binaries
 *.dll               # Dynamic link libraries
 CMakeFiles/
