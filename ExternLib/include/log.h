@@ -4,31 +4,16 @@
 #include "estring.h"
 #include "logger.h"
 
-enum class ELvl : int
-{
-    eAlways = 0,
-    eInfo = 1,
-    eSummary = 2,
-    eDetails = 3,
-    eDebug = 4,
-    eFull = 5
-};
-
-constexpr ELvl LOGLEVEL = ELvl::eAlways;
-
 // Logging Macros
 // #define LOG_ENTRY ScopeLogger __scope_logger__(__FILE__, __LINE__, __func__)
-#define LOG_ENTRY [] {                                \
-    if (LOGLEVEL >= ELvl::eFull)                    \
-        ScopeLogger __scope_logger__(__FILE__, __LINE__, __func__); }()
+#define LOG_ENTRY [] { ScopeLogger __scope_logger__(__FILE__, __LINE__, __func__); }()
 
-#define LOG(...) Logger::instance().logMessage("LOG", __FILE__, __LINE__, __func__, ##__VA_ARGS__)
+#define LOG(...) Logger::instance().logMessage(Elvl::eAlways, __FILE__, __LINE__, __func__, ##__VA_ARGS__)
 
-#define LOG_LEVEL(level, ...)                                                                   \
-    do                                                                                          \
-    {                                                                                           \
-        if (LOGLEVEL >= level)                                                                  \
-            Logger::instance().logMessage(#level, __FILE__, __LINE__, __func__, ##__VA_ARGS__); \
+#define LOG_LEVEL(elevel, ...)                                                              \
+    do                                                                                      \
+    {                                                                                       \
+        Logger::instance().logMessage(elevel, __FILE__, __LINE__, __func__, ##__VA_ARGS__); \
     } while (0)
 
 #define LOG_IF_FAILED(cond, ...) \
@@ -38,34 +23,38 @@ constexpr ELvl LOGLEVEL = ELvl::eAlways;
             LOG(__VA_ARGS__);    \
     } while (0)
 
-#define TRY(cond, ...)                                                                         \
-    do                                                                                         \
-    {                                                                                          \
-        if (!(cond))                                                                           \
-        {                                                                                      \
-            Logger::instance().logMessage("TRY", __FILE__, __LINE__, __func__, ##__VA_ARGS__); \
-            return;                                                                            \
-        }                                                                                      \
+#define TRY(cond)                                                                                              \
+    if (!(cond))                                                                                               \
+    {                                                                                                          \
+        Logger::instance().logMessage(Elvl::eError, __FILE__, __LINE__, __func__, "Condition failed: " #cond); \
+        return;                                                                                                \
+    }
+
+#define TRY_MSG(cond, ...)                                                                      \
+    if (!(cond))                                                                                \
+    {                                                                                           \
+        Logger::instance().logMessage(Elvl::eError, __FILE__, __LINE__, __func__, __VA_ARGS__); \
+        return;                                                                                 \
+    }
+
+#define TRY_VAL(cond, ret, ...)                                                                       \
+    do                                                                                                \
+    {                                                                                                 \
+        if (!(cond))                                                                                  \
+        {                                                                                             \
+            Logger::instance().logMessage(Elvl::eError, __FILE__, __LINE__, __func__, ##__VA_ARGS__); \
+            return ret;                                                                               \
+        }                                                                                             \
     } while (0)
 
-#define TRY_VAL(cond, ret, ...)                                                                \
-    do                                                                                         \
-    {                                                                                          \
-        if (!(cond))                                                                           \
-        {                                                                                      \
-            Logger::instance().logMessage("TRY", __FILE__, __LINE__, __func__, ##__VA_ARGS__); \
-            return ret;                                                                        \
-        }                                                                                      \
-    } while (0)
-
-#define FATAL_CHECK(cond, ...)                                                                   \
-    do                                                                                           \
-    {                                                                                            \
-        if (!(cond))                                                                             \
-        {                                                                                        \
-            Logger::instance().logMessage("FATAL", __FILE__, __LINE__, __func__, ##__VA_ARGS__); \
-            std::abort();                                                                        \
-        }                                                                                        \
+#define FATAL_CHECK(cond, ...)                                                                        \
+    do                                                                                                \
+    {                                                                                                 \
+        if (!(cond))                                                                                  \
+        {                                                                                             \
+            Logger::instance().logMessage(Elvl::eFatal, __FILE__, __LINE__, __func__, ##__VA_ARGS__); \
+            std::abort();                                                                             \
+        }                                                                                             \
     } while (0)
 
 #endif // LOG_H

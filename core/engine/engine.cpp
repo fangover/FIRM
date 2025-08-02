@@ -26,9 +26,19 @@ namespace engine
     {
         m_pGuiManager->initialize();
 
+        auto lastActionTime = std::chrono::steady_clock::now();
+
         while (!m_pGuiManager->shouldClose())
         {
-            m_pGuiManager->render();
+            auto now = std::chrono::steady_clock::now();
+            auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(now - lastActionTime);
+            if (elapsed.count() >= 5)
+            {
+                LOG("Hello ");
+                LOG_LEVEL(Elvl::eDebug, "test");
+                lastActionTime = now;
+            }
+            m_pGuiManager->onRender();
         }
         m_pGuiManager->shutDown();
     }

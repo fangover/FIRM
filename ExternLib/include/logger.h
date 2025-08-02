@@ -5,7 +5,21 @@
 #include <mutex>
 #include <filesystem>
 #include <cstdarg>
+#include <deque>
 #include "estring.h"
+
+enum class Elvl : int
+{
+    eFatal = -3,
+    eError = -2,
+    eWarn = -1,
+    eAlways = 0,
+    eInfo = 1,
+    eSummary = 2,
+    eDetails = 3,
+    eDebug = 4,
+    eFull = 5
+};
 
 class Logger
 {
@@ -18,16 +32,21 @@ public:
 
     static Logger &instance();
 
-    static void logMessage(const char *,
+    static void logMessage(Elvl level,
                            const char *,
                            int,
                            const char *,
                            const char * = "", ...);
-    static void logMessage(const char *level,
+    static void logMessage(Elvl level,
                            const char *file,
                            int line,
                            const char *func,
                            const EString &msg);
+    static std::deque<EString> &getRecentLogs();
+    static void clearRecentLogs();
+
+    static void setCurrentLogLevel(const Elvl);
+    static Elvl getCurrentLogLevel();
 
 private:
     static std::string formatMessage(const char *, va_list);
@@ -51,6 +70,11 @@ private:
     static std::mutex s_logMutex;
     static constexpr std::string_view s_cstrLogDir = "build/out/log";
     static constexpr size_t s_ciMaxLogSize = 5 * 1024 * 1024;
+
+    static inline std::deque<EString> s_recentLogs;
+    static constexpr size_t s_maxRecentLogs = 1000;
+
+    static inline Elvl s_eRuntimeLogLevel = Elvl::eAlways;
 };
 
 class ScopeLogger

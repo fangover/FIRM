@@ -10,6 +10,34 @@
 
 #include "../include/logger.h"
 
+namespace
+{
+    inline const char *toUser(Elvl level)
+    {
+        switch (level)
+        {
+        case Elvl::eError:
+            return "ERROR";
+        case Elvl::eWarn:
+            return "WARN";
+        case Elvl::eAlways:
+            return "LOG";
+        case Elvl::eInfo:
+            return "INFO";
+        case Elvl::eSummary:
+            return "SUMMARY";
+        case Elvl::eDetails:
+            return "DETAILS";
+        case Elvl::eDebug:
+            return "DEBUG";
+        case Elvl::eFull:
+            return "FULL";
+        default:
+            return "UNKNOWN";
+        }
+    }
+}
+
 std::mutex Logger::s_logMutex;
 
 Logger::Logger() = default;
@@ -20,12 +48,17 @@ Logger &Logger::instance()
     return logger;
 }
 
-void Logger::logMessage(const char *cpLevel,
+void Logger::logMessage(Elvl elevel,
                         const char *cpFile,
                         int ciLine,
                         const char *cpfunc,
                         const char *cpfmt, ...)
 {
+    if (elevel > s_eRuntimeLogLevel)
+    {
+        return;
+    }
+
     std::lock_guard<std::mutex> lock(s_logMutex);
     std::string timestamp = getTimeStamp("%Y-%m-%d %T");
 
@@ -34,7 +67,11 @@ void Logger::logMessage(const char *cpLevel,
     std::string strMessage = formatMessage(cpfmt, args);
     va_end(args);
 
-    strMessage = formatLogMessage(timestamp, cpLevel, cpFile, ciLine, cpfunc, strMessage);
+    strMessage = formatLogMessage(timestamp, toUser(elevel), cpFile, ciLine, cpfunc, strMessage);
+
+    s_recentLogs.push_back(EString(strMessage));
+    if (s_recentLogs.size() > s_maxRecentLogs)
+        s_recentLogs.pop_front();
     printConsole(strMessage);
 
     auto strLogPath = prepareLogFile();
@@ -44,13 +81,35 @@ void Logger::logMessage(const char *cpLevel,
     }
 }
 
-void Logger::logMessage(const char *level,
+void Logger::logMessage(Elvl level,
                         const char *file,
                         int line,
                         const char *func,
                         const EString &msg)
 {
     logMessage(level, file, line, func, msg.data());
+}
+
+std::deque<EString> &Logger::getRecentLogs()
+{
+    std::lock_guard<std::mutex> lock(s_logMutex);
+    return s_recentLogs;
+}
+
+void Logger::clearRecentLogs()
+{
+    std::lock_guard<std::mutex> lock(s_logMutex);
+    s_recentLogs.clear();
+}
+
+void Logger::setCurrentLogLevel(const Elvl elevel)
+{
+    s_eRuntimeLogLevel = elevel;
+}
+
+Elvl Logger::getCurrentLogLevel()
+{
+    return s_eRuntimeLogLevel;
 }
 
 std::string Logger::formatMessage(const char *fmt, va_list args)
@@ -197,10 +256,10 @@ void Logger::rotateLog(const std::filesystem::path &coLogPath)
 ScopeLogger::ScopeLogger(const char *file, int line, const char *func)
     : file_(file), line_(line), func_(func)
 {
-    Logger::instance().logMessage("ENTER", file_, line_, func_);
+    Logger::instance().logMessage(Elvl::eFull, file_, line_, func_, ">> ENTER");
 }
 
 ScopeLogger::~ScopeLogger() noexcept
 {
-    Logger::instance().logMessage("EXIT", file_, line_, func_);
+    Logger::instance().logMessage(Elvl::eFull, file_, line_, func_, "<< EXIT");
 }

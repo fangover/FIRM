@@ -13,7 +13,7 @@ namespace Gui
         explicit ExamplePanel(EString strName) : m_strName(strName) {}
 
         const EString &name() const override;
-        void render() override;
+        void onRender() override;
 
     private:
         EString m_strName;

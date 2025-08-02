@@ -42,7 +42,7 @@ void Manager::initialize()
     ImGui_ImplOpenGL3_Init(glsl_version);
 }
 
-void Manager::render()
+void Manager::onRender()
 {
     glfwPollEvents();
     ImGui_ImplOpenGL3_NewFrame();
@@ -65,7 +65,7 @@ void Manager::render()
         if (panel->isVisible())
         {
             ImGui::Begin(panel->name().data());
-            panel->render();
+            panel->onRender();
             ImGui::End();
         }
     }

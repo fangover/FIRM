@@ -10,7 +10,7 @@ namespace Gui
     {
     public:
         void initialize();
-        void render();
+        void onRender();
         void shutDown();
         bool shouldClose() const;
 

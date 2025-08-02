@@ -3,6 +3,7 @@
 
 #include "iPanel.h"
 #include "examplePanel.h"
+#include "logPanel.h"
 
 namespace Gui
 {
@@ -13,6 +14,7 @@ namespace Gui
         {
             std::vector<std::unique_ptr<IPanel>> panels;
             panels.push_back(std::make_unique<ExamplePanel>("ExamplePanel"));
+            panels.push_back(std::make_unique<LogPanel>("LogPanel"));
             // Add more here
             return panels;
         }

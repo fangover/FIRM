@@ -2,21 +2,22 @@
 #define CA466480_D313_423A_A5F7_006DBEC04C2A
 
 #include "ipanel.h"
-#include <deque>
-#include <string>
 
-class LogPanel : public IPanel
+namespace Gui
 {
-public:
-    LogPanel();
+    class LogPanel : public IPanel
+    {
+    public:
+        explicit LogPanel(EString strName) : m_strName(strName) {}
 
-    void OnImGuiRender() override;
-    void AddLog(const EString &message);
-    void Clear();
+        const EString &name() const override;
+        void onRender() override;
 
-private:
-    std::deque<EString> logs;
-    bool autoScroll = true;
-};
+    private:
+        void clear();
 
+        bool autoScroll = true;
+        EString m_strName;
+    };
+} // namespace Gui
 #endif /* CA466480_D313_423A_A5F7_006DBEC04C2A */

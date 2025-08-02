@@ -2,7 +2,7 @@
 #define B277F9FC_D020_42D4_AC4F_91F2991F7F7A
 
 #include <eresult.h>
-#include <globalEnum.h>
+#include <common/globalEnum.h>
 
 namespace Strategies
 {
