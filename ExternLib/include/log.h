@@ -5,7 +5,6 @@
 #include "logger.h"
 
 // Logging Macros
-// #define LOG_ENTRY ScopeLogger __scope_logger__(__FILE__, __LINE__, __func__)
 #define LOG_ENTRY [] { ScopeLogger __scope_logger__(__FILE__, __LINE__, __func__); }()
 
 #define LOG(...) Logger::instance().logMessage(Elvl::eAlways, __FILE__, __LINE__, __func__, ##__VA_ARGS__)

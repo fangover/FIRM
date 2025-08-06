@@ -10,34 +10,6 @@
 
 #include "../include/logger.h"
 
-namespace
-{
-    inline const char *toUser(Elvl level)
-    {
-        switch (level)
-        {
-        case Elvl::eError:
-            return "ERROR";
-        case Elvl::eWarn:
-            return "WARN";
-        case Elvl::eAlways:
-            return "LOG";
-        case Elvl::eInfo:
-            return "INFO";
-        case Elvl::eSummary:
-            return "SUMMARY";
-        case Elvl::eDetails:
-            return "DETAILS";
-        case Elvl::eDebug:
-            return "DEBUG";
-        case Elvl::eFull:
-            return "FULL";
-        default:
-            return "UNKNOWN";
-        }
-    }
-}
-
 std::mutex Logger::s_logMutex;
 
 Logger::Logger() = default;
@@ -67,7 +39,7 @@ void Logger::logMessage(Elvl elevel,
     std::string strMessage = formatMessage(cpfmt, args);
     va_end(args);
 
-    strMessage = formatLogMessage(timestamp, toUser(elevel), cpFile, ciLine, cpfunc, strMessage);
+    strMessage = formatLogMessage(timestamp, toUser(elevel).c_str(), cpFile, ciLine, cpfunc, strMessage);
 
     s_recentLogs.push_back(EString(strMessage));
     if (s_recentLogs.size() > s_maxRecentLogs)

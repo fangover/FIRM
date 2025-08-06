@@ -2,33 +2,33 @@
 #include <imgui.h>
 
 using namespace Gui;
-namespace
-{
-    inline const char *toUser(Elvl level)
-    {
-        switch (level)
-        {
-        case Elvl::eError:
-            return "ERROR";
-        case Elvl::eWarn:
-            return "WARN";
-        case Elvl::eAlways:
-            return "LOG";
-        case Elvl::eInfo:
-            return "INFO";
-        case Elvl::eSummary:
-            return "SUMMARY";
-        case Elvl::eDetails:
-            return "DETAILS";
-        case Elvl::eDebug:
-            return "DEBUG";
-        case Elvl::eFull:
-            return "FULL";
-        default:
-            return "UNKNOWN";
-        }
-    }
-}
+// namespace
+// {
+//     inline const char *toUser(Elvl level)
+//     {
+//         switch (level)
+//         {
+//         case Elvl::eError:
+//             return "ERROR";
+//         case Elvl::eWarn:
+//             return "WARN";
+//         case Elvl::eAlways:
+//             return "LOG";
+//         case Elvl::eInfo:
+//             return "INFO";
+//         case Elvl::eSummary:
+//             return "SUMMARY";
+//         case Elvl::eDetails:
+//             return "DETAILS";
+//         case Elvl::eDebug:
+//             return "DEBUG";
+//         case Elvl::eFull:
+//             return "FULL";
+//         default:
+//             return "UNKNOWN";
+//         }
+//     }
+// }
 const EString &LogPanel::name() const
 {
     return m_strName;
@@ -55,8 +55,13 @@ void LogPanel::onRender()
     ImGui::SameLine();
 
     std::vector<const char *> levelNames;
-    for (Elvl lvl : selectableLevels)
-        levelNames.push_back(toUser(lvl));
+    for (Elvl elevel : selectableLevels)
+    {
+        auto sv = toUser(elevel);
+        levelNames.push_back(sv.c_str());
+        LOG(EString().sprintf("Raw Elvl int value %d  << \n", static_cast<int>(elevel)));
+        LOG(EString().sprintf("String %s  << \n", toUser(elevel).data()));
+    }
     if (ImGui::Combo("##logLevel", &selectedIndex, levelNames.data(), static_cast<int>(levelNames.size())))
     {
         Logger::setCurrentLogLevel(static_cast<Elvl>(selectedIndex));

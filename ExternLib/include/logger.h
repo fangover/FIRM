@@ -21,6 +21,16 @@ enum class Elvl : int
     eFull = 5
 };
 
+DEFINE_ENUM(Elvl,
+            case Elvl::eError : return "ERROR";
+            case Elvl::eWarn : return "WARN";
+            case Elvl::eAlways : return "LOG";
+            case Elvl::eInfo : return "INFO";
+            case Elvl::eSummary : return "SUMMARY";
+            case Elvl::eDetails : return "DETAILS";
+            case Elvl::eDebug : return "DEBUG";
+            case Elvl::eFull : return "FULL";);
+
 class Logger
 {
 public:

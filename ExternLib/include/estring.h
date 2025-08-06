@@ -8,31 +8,6 @@
 #include <vector>
 #include <regex>
 
-template <typename T>
-constexpr bool has_toUser_v = requires(T v) {
-    { toUser(v) } -> std::convertible_to<std::string>;
-};
-
-template <typename T>
-auto toStr(const T &value) -> decltype(std::ostringstream{} << value, std::string{})
-{
-    std::ostringstream oss;
-    oss << value;
-    return oss.str();
-}
-
-template <typename T>
-constexpr auto toCStr(const T &v) -> decltype(v.c_str())
-{
-    return v.c_str();
-}
-
-template <typename T>
-std::enable_if_t<std::is_enum_v<T> && has_toUser_v<T>, std::string> toStr(T value)
-{
-    return toUser(value);
-}
-
 class EString
 {
     std::string m_value;
@@ -54,6 +29,11 @@ public:
     EString(std::string str) : m_value(std::move(str)) {}
     EString(const char *str) : m_value(str ? str : "") {}
 
+    EString(const EString &) = default;
+    EString(EString &&) noexcept = default;
+    EString &operator=(const EString &) = default;
+    EString &operator=(EString &&) noexcept = default;
+
     template <typename... Args>
     EString &sprintf(const std::string &fmt, Args &&...args)
     {
@@ -61,9 +41,50 @@ public:
         return *this;
     }
 
+    const char *c_str() const { return m_value.c_str(); }
+    const char *data() const { return m_value.data(); }
+
     inline operator const std::string &() const { return m_value; }
     inline operator std::string_view() const { return m_value; }
-    const char *data() const { return m_value.data(); }
 };
+
+template <typename T>
+auto toStr(const T &value) -> decltype(std::ostringstream{} << value, EString{})
+{
+    std::ostringstream oss;
+    oss << value;
+    return EString{oss.str()};
+}
+
+template <typename E>
+struct ToUserImpl
+{
+    static EString convert(E)
+    {
+        static_assert(sizeof(E) == 0, "toUser not implemented for this enum type");
+        return "";
+    }
+};
+
+template <typename E>
+EString toUser(E e)
+{
+    return ToUserImpl<E>::convert(e);
+}
+
+#define DEFINE_ENUM(EnumType, ...)             \
+    template <>                                \
+    struct ToUserImpl<EnumType>                \
+    {                                          \
+        static EString convert(EnumType value) \
+        {                                      \
+            switch (value)                     \
+            {                                  \
+                __VA_ARGS__                    \
+            default:                           \
+                return "Unknown " #EnumType;   \
+            }                                  \
+        }                                      \
+    }
 
 #endif /* EC041CB6_6FF5_45E9_9157_0C2F01B0A805 */
