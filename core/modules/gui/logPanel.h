@@ -11,13 +11,19 @@ namespace Gui
         explicit LogPanel(EString strName) : m_strName(strName) {}
 
         const EString &name() const override;
+        void onInit() override;
         void onRender() override;
 
     private:
         void clear();
+        int findSelectableLevels() const;
 
         bool autoScroll = true;
         EString m_strName;
+
+        int m_nSelectedIndex;
+        std::vector<Elvl> m_lstSelectableLevels;
+        std::vector<EString> m_lstLevelNames;
     };
 } // namespace Gui
 #endif /* CA466480_D313_423A_A5F7_006DBEC04C2A */

@@ -13,6 +13,7 @@ namespace Gui
         virtual bool isVisible() const { return m_visible; }
         virtual void setVisible(bool v) { m_visible = v; }
 
+        virtual void onInit() = 0;
         virtual void onRender() = 0;
 
     protected:

@@ -40,6 +40,11 @@ void Manager::initialize()
     ImGui::StyleColorsDark();
     ImGui_ImplGlfw_InitForOpenGL(g_pWindow, true);
     ImGui_ImplOpenGL3_Init(glsl_version);
+
+    for (auto &panel : m_lstPanels)
+    {
+        panel->onInit();
+    }
 }
 
 void Manager::onRender()
