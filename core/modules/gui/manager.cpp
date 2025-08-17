@@ -5,11 +5,16 @@
 #include <GLFW/glfw3.h>
 
 #include "manager.h"
+
 #include "modules/gui/ipanel.h"
 #include "modules/gui/panelRegistry.h"
 
 static GLFWwindow *g_pWindow = nullptr;
 using namespace Gui;
+
+Manager::Manager() : m_panels(Gui::PanelRegistry::getDefaultPanels())
+{
+}
 
 void Manager::initialize()
 {
@@ -41,10 +46,7 @@ void Manager::initialize()
     ImGui_ImplGlfw_InitForOpenGL(g_pWindow, true);
     ImGui_ImplOpenGL3_Init(glsl_version);
 
-    for (auto &panel : m_lstPanels)
-    {
-        panel->onInit();
-    }
+    m_panels.onInits();
 }
 
 void Manager::onRender()
@@ -54,26 +56,8 @@ void Manager::onRender()
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-    ImGui::Begin("Panel Manager");
-    for (auto &panel : m_lstPanels)
-    {
-        bool visible = panel->isVisible();
-        if (ImGui::Checkbox(panel->name().data(), &visible))
-        {
-            panel->setVisible(visible);
-        }
-    }
-    ImGui::End();
-
-    for (auto &panel : m_lstPanels)
-    {
-        if (panel->isVisible())
-        {
-            ImGui::Begin(panel->name().data());
-            panel->onRender();
-            ImGui::End();
-        }
-    }
+    m_panels.setVisibles();
+    m_panels.onRenders();
 
     ImGui::Render();
     int iDisplayWidth, iDisplayHeight;
@@ -97,9 +81,4 @@ void Manager::shutDown()
     ImGui::DestroyContext();
     glfwDestroyWindow(g_pWindow);
     glfwTerminate();
-}
-
-void Manager::addPanel(std::unique_ptr<IPanel> pPanel)
-{
-    m_lstPanels.push_back(std::move(pPanel));
 }

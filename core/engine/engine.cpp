@@ -15,11 +15,6 @@ namespace engine
         LOG("[Engine] Initialized.");
 
         m_pGuiManager = std::make_unique<Gui::Manager>();
-
-        for (auto &panel : Gui::PanelRegistry::getDefaultPanels())
-        {
-            m_pGuiManager->addPanel(std::move(panel));
-        }
     }
 
     void Engine::runLoop()
