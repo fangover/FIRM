@@ -18,6 +18,8 @@ constexpr std::chrono::minutes tf_duration(Timeframe tf)
         return 15min;
     case Timeframe::H1:
         return 60min;
+    case Timeframe::H4:
+        return 240min;
     case Timeframe::D1:
         return 1440min;
     }
@@ -27,7 +29,7 @@ constexpr std::chrono::minutes tf_duration(Timeframe tf)
 namespace
 {
     template <class Dur>
-    [[nodiscard]] inline Timestamp floor_to_tf(std::chrono::utc_time<Dur> t, Timeframe tf)
+    [[nodiscard]] inline Timestamp floorTimeFrame(std::chrono::utc_time<Dur> t, Timeframe tf)
     {
         using namespace std::chrono;
         const auto d = tf_duration(tf);
@@ -51,7 +53,7 @@ struct Candle
     Candle(Timestamp timestamp_utc,
            double o, double h, double l, double c,
            double v, Timeframe timeframe)
-        : ts(floor_to_tf(timestamp_utc, timeframe)),
+        : ts(floorTimeFrame(timestamp_utc, timeframe)),
           m_open(o), m_high(h), m_low(l), m_close(c), m_volume(v), m_timeFrame(timeframe)
     {
     }

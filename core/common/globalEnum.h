@@ -21,6 +21,7 @@ enum class Timeframe
     M5,
     M15,
     H1,
+    H4,
     D1
 };
 
