@@ -29,7 +29,6 @@ namespace engine
             auto elapsed = std::chrono::duration_cast<std::chrono::seconds>(now - lastActionTime);
             if (elapsed.count() >= 5)
             {
-                LOG("Hello ");
                 LOG_LEVEL(Elvl::eDebug, "test");
                 lastActionTime = now;
             }

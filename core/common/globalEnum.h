@@ -15,4 +15,13 @@ struct Signal
     std::string reason;
 };
 
+enum class Timeframe
+{
+    M1,
+    M5,
+    M15,
+    H1,
+    D1
+};
+
 #endif /* C7533AFB_58DD_4D5E_9BDC_C169B8584C39 */
