@@ -1,4 +1,4 @@
-#include "logPanel.h"
+#include "logpanel.h"
 #include "imgui.h"
 
 using namespace Gui;

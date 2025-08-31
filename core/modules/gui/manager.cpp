@@ -7,7 +7,7 @@
 #include "manager.h"
 
 #include "modules/gui/ipanel.h"
-#include "modules/gui/panelRegistry.h"
+#include "modules/gui/panelregistry.h"
 
 static GLFWwindow *g_pWindow = nullptr;
 using namespace Gui;

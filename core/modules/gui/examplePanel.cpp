@@ -1,7 +1,7 @@
 #include "backends/imgui_impl_glfw.h"
 #include "backends/imgui_impl_opengl3.h"
 
-#include "iPanel.h"
+#include "ipanel.h"
 #include "examplePanel.h"
 
 using namespace Gui;

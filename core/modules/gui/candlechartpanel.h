@@ -1,8 +1,8 @@
 #ifndef BAD9F0BF_7264_4D33_83DD_EB18437CB673
 #define BAD9F0BF_7264_4D33_83DD_EB18437CB673
-#include "iPanel.h"
+
 #include "estring.h"
-#include "candles.h"
+#include "ipanel.h"
 
 namespace Gui
 {

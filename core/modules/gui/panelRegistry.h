@@ -1,10 +1,11 @@
 #ifndef B4E586A6_6162_4DEA_BD7C_A9FF10DEDE2B
 #define B4E586A6_6162_4DEA_BD7C_A9FF10DEDE2B
 
-#include "iPanel.h"
+#include "ipanel.h"
 #include "panels.h"
-#include "examplePanel.h"
-#include "logPanel.h"
+#include "examplepanel.h"
+#include "logpanel.h"
+#include "candlechartpanel.h"
 
 namespace Gui
 {
@@ -16,6 +17,7 @@ namespace Gui
             Panels::PanelList panels;
             panels.emplace_back(std::make_unique<ExamplePanel>("ExamplePanel"));
             panels.emplace_back(std::make_unique<LogPanel>("LogPanel"));
+            panels.emplace_back(std::make_unique<CandleChartPanel>("CandleChartPanel"));
             // Add more here
             return panels;
         }
