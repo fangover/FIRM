@@ -5,9 +5,9 @@ file(GLOB_RECURSE ENGINE_SRC
 
 add_library(engine STATIC ${ENGINE_SRC})
 
-target_include_directories(engine PUBLIC 
+target_include_directories(engine PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
-    ${PROJECT_SOURCE_DIR}/Core
+    ${PROJECT_SOURCE_DIR}/core
 )
 
 target_link_libraries(engine
