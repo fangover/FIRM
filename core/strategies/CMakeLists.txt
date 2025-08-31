@@ -6,9 +6,9 @@ function(add_strategy TARGET_NAME SRC_DIR)
 
     add_library(${TARGET_NAME} STATIC ${STRATEGY_SRC})
 
-    target_include_directories(${TARGET_NAME} PUBLIC 
+    target_include_directories(${TARGET_NAME} PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/${SRC_DIR}
-        ${PROJECT_SOURCE_DIR}/Core
+        ${PROJECT_SOURCE_DIR}/core
     )
 
     target_link_libraries(${TARGET_NAME} PRIVATE strategy_interface)

@@ -7,8 +7,7 @@ add_executable(main ${APP_SOURCES})
 
 target_include_directories(main PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
-    ${PROJECT_SOURCE_DIR}/Core
-    ${PROJECT_SOURCE_DIR}/ExternLib/include
+    ${PROJECT_SOURCE_DIR}/core
 )
 
 target_link_libraries(main PRIVATE 

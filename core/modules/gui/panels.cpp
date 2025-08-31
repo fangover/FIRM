@@ -1,4 +1,4 @@
-#include <estring.h>
+#include "estring.h"
 #include "imgui.h"
 #include "panels.h"
 
@@ -30,6 +30,11 @@ void Panels::onRenders()
 {
     for (auto &panel : m_panels)
     {
+        if (!panel->isVisible())
+        {
+            continue;
+        }
+
         ImGui::Begin(panel->name().data());
         panel->onRender();
         ImGui::End();

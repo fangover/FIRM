@@ -1,6 +1,7 @@
 {
     "version": "2.0.0",
     "tasks": [
+        // CMake: Configure (Ninja)
         {
             "label": "CMake: Configure (Ninja)",
             "type": "shell",
@@ -11,7 +12,7 @@
                 "-B",
                 "${workspaceFolder}/build",
                 "-G",
-                "Ninja" // Change from MinGW Makefiles to Ninja
+                "Ninja"
             ],
             "options": {
                 "env": {
@@ -24,6 +25,7 @@
                 "reveal": "always"
             }
         },
+        // CMake: Build (Ninja)
         {
             "label": "CMake: Build (Ninja)",
             "type": "shell",
@@ -40,6 +42,7 @@
             ],
             "dependsOn": "CMake: Configure (Ninja)"
         },
+        // Run
         {
             "label": "Run",
             "type": "shell",
@@ -51,6 +54,7 @@
                 "panel": "new"
             }
         },
+        // Build & Run
         {
             "label": "Build & Run",
             "dependsOn": [
@@ -61,6 +65,7 @@
             "problemMatcher": [],
             "dependsOrder": "sequence"
         },
+        // Clean
         {
             "label": "Clean",
             "type": "shell",
@@ -75,6 +80,7 @@
                 "reveal": "always"
             }
         },
+        // Rebuild
         {
             "label": "Rebuild",
             "dependsOn": [
@@ -85,6 +91,7 @@
             "group": "build",
             "dependsOrder": "sequence"
         },
+        // Rebuild & Run
         {
             "label": "Rebuild & Run",
             "dependsOn": [
@@ -94,6 +101,7 @@
             "group": "build",
             "dependsOrder": "sequence"
         },
+        // Test: Clean build_test
         {
             "label": "Test: Clean build_test",
             "type": "shell",
@@ -103,8 +111,9 @@
                 "if (Test-Path '${workspaceFolder}/build_test') { Remove-Item -Recurse -Force '${workspaceFolder}/build_test' }"
             ],
             "problemMatcher": [],
-            "group": "build"
+            "group": "test"
         },
+        // Test: Configure (GoogleTest)
         {
             "label": "Test: Configure (GoogleTest)",
             "type": "shell",
@@ -123,12 +132,13 @@
                     "PATH": "C:/msys64/ucrt64/bin;${env:PATH}"
                 }
             },
-            "group": "build",
+            "group": "test",
             "problemMatcher": [],
             "presentation": {
                 "reveal": "always"
             }
         },
+        // Test: Build
         {
             "label": "Test: Build",
             "type": "shell",
@@ -144,23 +154,29 @@
                 "reveal": "always"
             }
         },
+        // Test: Run All (CTest)
         {
             "label": "Test: Run All (CTest)",
             "type": "shell",
             "command": "ctest",
             "args": [
-                "--output-on-failure"
+                "--test-dir",
+                "${workspaceFolder}/build_test",
+                "-j",
+                "8",
+                "--output-on-failure",
+                "--no-tests=error",
+                "-C",
+                "Debug"
             ],
             "options": {
                 "cwd": "${workspaceFolder}/build_test"
             },
             "group": "test",
             "dependsOn": "Test: Build",
-            "problemMatcher": [],
-            "presentation": {
-                "reveal": "always"
-            }
-        },
+            "problemMatcher": []
+        }
+        // Test: Rebuild & Run All
         {
             "label": "Test: Rebuild & Run All",
             "dependsOn": [
@@ -169,10 +185,11 @@
                 "Test: Build",
                 "Test: Run All (CTest)"
             ],
-            "group": "build",
+            "group": "test",
             "dependsOrder": "sequence",
             "problemMatcher": []
         },
+        // Full Clean
         {
             "label": "Full Clean",
             "dependsOn": [

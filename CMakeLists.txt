@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(TradeManager LANGUAGES CXX)
+project(FIRM LANGUAGES CXX)
 
 # C++ standard
 set(CMAKE_CXX_STANDARD 23)
@@ -8,55 +8,35 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Compiler flags
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+# Apply warning flags only to C++ sources to avoid breaking C libraries
 add_compile_options(
-    -Wall
-    -Wextra
-    -Werror
-    -Wpedantic
-    -Wunused-parameter
-    -fexec-charset=UTF-8
-    -fdiagnostics-color=always
+    $<$<COMPILE_LANGUAGE:CXX>:-Wall>
+    $<$<COMPILE_LANGUAGE:CXX>:-Wextra>
+    $<$<COMPILE_LANGUAGE:CXX>:-Werror>
+    $<$<COMPILE_LANGUAGE:CXX>:-Wpedantic>
+    $<$<COMPILE_LANGUAGE:CXX>:-Wunused-parameter>
+    $<$<COMPILE_LANGUAGE:CXX>:-fexec-charset=UTF-8>
+    $<$<COMPILE_LANGUAGE:CXX>:-fdiagnostics-color=always>
 )
 
 # Output folders
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build/bin)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build/lib)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 include(cmake/pch/pch.cmake)
 
-# ImGui
-add_library(imgui STATIC
-    dependency/imgui/imgui.cpp
-    dependency/imgui/imgui_draw.cpp
-    dependency/imgui/imgui_tables.cpp
-    dependency/imgui/imgui_widgets.cpp
-    dependency/imgui/backends/imgui_impl_glfw.cpp
-    dependency/imgui/backends/imgui_impl_opengl3.cpp
-)
-target_include_directories(imgui PUBLIC
-    dependency/imgui
-    dependency/imgui/backends
-)
-
-# GLFW
-set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
-set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
-set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -w")
-set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -w")
-set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -w")
-add_subdirectory(dependency/glfw)
+enable_testing()
 
 find_package(OpenGL REQUIRED)
+find_package(OpenGL REQUIRED)
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/dependencies.cmake)
 
 # Global include
 include_directories(    
-    # dependency/imgui
-    # dependency/imgui/backends
-    dependency/glfw/include
     ExternLib/include
 )
 

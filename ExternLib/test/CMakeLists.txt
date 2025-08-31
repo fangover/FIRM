@@ -1,22 +1,22 @@
 cmake_minimum_required(VERSION 3.16)
-project(ExternLibTests)
+project(ExternLibTests LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-add_subdirectory(${CMAKE_SOURCE_DIR}/../../dependency/googletest googletest-build)
+include(FetchContent)
 
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-
-enable_testing()
+FetchContent_Declare(
+    googletest
+    GIT_REPOSITORY https://github.com/google/googletest.git
+    GIT_TAG v1.14.0
+)
+FetchContent_MakeAvailable(googletest)
 
 function(add_gtest name file)
-    file(GLOB EXTERNLIB_SOURCES "${CMAKE_CURRENT_LIST_DIR}/../source/*.cpp")
-
-    add_executable(${name} ${file} ${EXTERNLIB_SOURCES})
-    target_include_directories(${name} PRIVATE ${CMAKE_CURRENT_LIST_DIR}/../include)
-    target_link_libraries(${name} gtest_main)
+    add_executable(${name} ${file})
+    target_link_libraries(${name} gtest_main ExternLib)
     add_test(NAME ${name} COMMAND ${name})
 endfunction()
 
