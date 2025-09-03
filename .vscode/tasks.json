@@ -175,7 +175,7 @@
             "group": "test",
             "dependsOn": "Test: Build",
             "problemMatcher": []
-        }
+        },
         // Test: Rebuild & Run All
         {
             "label": "Test: Rebuild & Run All",
