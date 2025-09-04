@@ -30,8 +30,6 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 include(cmake/pch/pch.cmake)
 
 enable_testing()
-
-find_package(OpenGL REQUIRED)
 find_package(OpenGL REQUIRED)
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/dependencies.cmake)
 
@@ -41,6 +39,6 @@ include_directories(
 )
 
 # Add subdirectories
-add_subdirectory(ExternLib)
-add_subdirectory(Core)
-add_subdirectory(App)
+add_subdirectory(externlib)
+add_subdirectory(core)
+add_subdirectory(app)
