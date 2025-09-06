@@ -5,18 +5,18 @@
             "includePath": [
                 "${workspaceFolder}",
                 "${workspaceFolder}/**",
-                "C:/msys64/ucrt64/include/c++/15.2.0",
-                "C:/msys64/ucrt64/include/c++/15.2.0/x86_64-w64-mingw32",
-                "C:/msys64/ucrt64/include/c++/15.2.0/backward",
-                "C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/15.2.0/include",
+                "C:/msys64/ucrt64/include/c++/14.2.0",
+                "C:/msys64/ucrt64/include/c++/14.2.0/x86_64-w64-mingw32",
+                "C:/msys64/ucrt64/include/c++/14.2.0/backward",
+                "C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/14.2.0/include",
                 "C:/msys64/ucrt64/include",
-                "C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/15.2.0/include-fixed"
+                "C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/14.2.0/include-fixed",
             ],
             "defines": [],
             "compilerPath": "C:/msys64/ucrt64/bin/g++.exe",
             "compileCommands": [
                 "${workspaceFolder}/build/compile_commands.json",
-                "${workspaceFolder}/build_test/compile_commands.json"
+                "${workspaceFolder}/build_test/compile_commands.json",
             ],
             "cppStandard": "c++23",
             "intelliSenseMode": "windows-gcc-x64",
