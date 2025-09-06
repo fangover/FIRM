@@ -10,17 +10,13 @@ class ESingleton
 {
 public:
     template <typename... Args>
-    static T &instance(Args &&...args)
+    static T& instance(Args&&... args)
     {
-        std::call_once(mOnceFlag, [&]()
-                       { mInstance = std::make_unique<T>(std::forward<Args>(args)...); });
+        std::call_once(mOnceFlag, [&]() { mInstance = std::make_unique<T>(std::forward<Args>(args)...); });
         return *mInstance;
     }
 
-    static bool is_initialized()
-    {
-        return mInstance != nullptr;
-    }
+    static bool is_initialized() { return mInstance != nullptr; }
 
     static void reset()
     {
@@ -32,8 +28,8 @@ public:
 private:
     ESingleton() = delete;
     ~ESingleton() = delete;
-    ESingleton(const ESingleton &) = delete;
-    ESingleton &operator=(const ESingleton &) = delete;
+    ESingleton(const ESingleton&) = delete;
+    ESingleton& operator=(const ESingleton&) = delete;
 
     static inline std::unique_ptr<T> mInstance = nullptr;
     static inline std::once_flag mOnceFlag;

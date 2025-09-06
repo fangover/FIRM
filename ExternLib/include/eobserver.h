@@ -1,10 +1,10 @@
 #ifndef E071AFA1_4B42_42C4_8D5E_7747E28860A3
 #define E071AFA1_4B42_42C4_8D5E_7747E28860A3
 
-#include <functional>
-#include <unordered_map>
 #include <atomic>
+#include <functional>
 #include <mutex>
+#include <unordered_map>
 
 template <typename... Args>
 class EObserver
@@ -43,7 +43,7 @@ public:
             std::lock_guard<std::mutex> lock(mMutex);
             lstObserversCopy = mlstObservers;
         }
-        for (const auto &[id, callback] : lstObserversCopy)
+        for (const auto& [id, callback] : lstObserversCopy)
         {
             if (callback)
             {
@@ -55,7 +55,7 @@ public:
 private:
     mutable std::mutex mMutex;
     std::unordered_map<ObserverID, Callback> mlstObservers;
-    std::atomic<ObserverID> mNextId{0};
+    std::atomic<ObserverID> mNextId{ 0 };
 };
 
 #endif /* E071AFA1_4B42_42C4_8D5E_7747E28860A3 */

@@ -1,16 +1,15 @@
 
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <filesystem>
 #include "../include/log.h"
+#include <filesystem>
+#include <fstream>
+#include <iostream>
+#include <string>
 
 #include "../include/FileStreamHandle.h"
 
 using namespace FileStream;
 
-FileHandle::FileHandle(const std::string &cstrName, std::ios::openmode mode)
-    : m_strFileName(cstrName)
+FileHandle::FileHandle(const std::string& cstrName, std::ios::openmode mode) : m_strFileName(cstrName)
 {
     std::filesystem::path oFilePath(cstrName);
     auto oParentDir = oFilePath.parent_path();
@@ -22,7 +21,7 @@ FileHandle::FileHandle(const std::string &cstrName, std::ios::openmode mode)
     }
 
     m_ofsFile.open(cstrName, mode);
-    LOG_IF_FAILED(m_ofsFile.is_open(), "Error opening file: ", cstrName);
+    LOG_IF_FAILED(m_ofsFile.is_open(), "Error opening file: ", cstrName.c_str());
 }
 
 FileHandle::~FileHandle()
@@ -30,7 +29,9 @@ FileHandle::~FileHandle()
     LOG_ENTRY;
 
     if (m_ofsFile)
+    {
         m_ofsFile.close();
+    }
 }
 
 void FileHandle::readFile() const

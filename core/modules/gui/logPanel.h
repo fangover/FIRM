@@ -10,7 +10,7 @@ namespace Gui
     public:
         explicit LogPanel(EString strName) : m_strName(strName) {}
 
-        const EString &name() const override;
+        const EString& name() const override;
         void onInit() override;
         void onRender() override;
 

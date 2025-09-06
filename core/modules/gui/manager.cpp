@@ -1,30 +1,27 @@
 
 #include "GLFW/glfw3.h"
-#include "imgui.h"
 #include "backends/imgui_impl_glfw.h"
 #include "backends/imgui_impl_opengl3.h"
+#include "imgui.h"
 
 #include "manager.h"
+#include "panelRegistry.h"
 
-#include "modules/gui/ipanel.h"
-#include "modules/gui/panelRegistry.h"
-
-static GLFWwindow *g_pWindow = nullptr;
+static GLFWwindow* g_pWindow = nullptr;
 using namespace Gui;
 
-Manager::Manager() : m_panels(Gui::PanelRegistry::getDefaultPanels())
-{
-}
+Manager::Manager() : m_panels(Gui::PanelRegistry::getDefaultPanels()) {}
 
 void Manager::initialize()
 {
+    glfwSetErrorCallback([](int c, const char* d) { fprintf(stderr, "GLFW %d: %s\n", c, d); });
     if (!glfwInit())
     {
         std::cerr << "Failed to initialize GLFW\n";
         return;
     }
 
-    const char *glsl_version = "#version 330";
+    const char* glsl_version = "#version 330";
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     g_pWindow = glfwCreateWindow(1280, 720, "Trade Manager", nullptr, nullptr);
@@ -39,8 +36,8 @@ void Manager::initialize()
 
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGuiIO &io = ImGui::GetIO();
-    (void)io;
+    ImGuiIO& io = ImGui::GetIO();
+    (void) io;
 
     ImGui::StyleColorsDark();
     ImGui_ImplGlfw_InitForOpenGL(g_pWindow, true);

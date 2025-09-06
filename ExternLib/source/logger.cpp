@@ -1,11 +1,11 @@
+#include <chrono>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
-#include <fstream>
-#include <sstream>
-#include <regex>
-#include <chrono>
 #include <ctime>
+#include <fstream>
+#include <regex>
+#include <sstream>
 #include <vector>
 
 #include "../include/logger.h"
@@ -14,17 +14,13 @@ std::mutex Logger::s_logMutex;
 
 Logger::Logger() = default;
 
-Logger &Logger::instance()
+Logger& Logger::instance()
 {
     static Logger logger;
     return logger;
 }
 
-void Logger::logMessage(Elvl elevel,
-                        const char *cpFile,
-                        int ciLine,
-                        const char *cpfunc,
-                        const char *cpfmt, ...)
+void Logger::logMessage(Elvl elevel, const char* cpFile, int ciLine, const char* cpfunc, const char* cpfmt, ...)
 {
     if (elevel > s_eRuntimeLogLevel)
     {
@@ -43,7 +39,9 @@ void Logger::logMessage(Elvl elevel,
 
     s_recentLogs.push_back(EString(strMessage));
     if (s_recentLogs.size() > s_maxRecentLogs)
+    {
         s_recentLogs.pop_front();
+    }
     printConsole(strMessage);
 
     auto strLogPath = prepareLogFile();
@@ -53,16 +51,12 @@ void Logger::logMessage(Elvl elevel,
     }
 }
 
-void Logger::logMessage(Elvl level,
-                        const char *file,
-                        int line,
-                        const char *func,
-                        const EString &msg)
+void Logger::logMessage(Elvl level, const char* file, int line, const char* func, const EString& msg)
 {
     logMessage(level, file, line, func, msg.data());
 }
 
-std::deque<EString> &Logger::getRecentLogs()
+std::deque<EString>& Logger::getRecentLogs()
 {
     std::lock_guard<std::mutex> lock(s_logMutex);
     return s_recentLogs;
@@ -84,7 +78,7 @@ Elvl Logger::getCurrentLogLevel()
     return s_eRuntimeLogLevel;
 }
 
-std::string Logger::formatMessage(const char *fmt, va_list args)
+std::string Logger::formatMessage(const char* fmt, va_list args)
 {
     va_list args_copy;
     va_copy(args_copy, args);
@@ -101,36 +95,35 @@ std::string Logger::formatMessage(const char *fmt, va_list args)
     return message;
 }
 
-std::string Logger::formatLogMessage(std::string &cstrTimestamp,
-                                     const char *cclevel,
-                                     const char *ccfile,
+std::string Logger::formatLogMessage(std::string& cstrTimestamp,
+                                     const char* cclevel,
+                                     const char* ccfile,
                                      int iLine,
-                                     const char *ccfunc,
-                                     const std::string &cstrMessage)
+                                     const char* ccfunc,
+                                     const std::string& cstrMessage)
 {
     // E.g. output [2025-05-26 15:51:46] [main.cpp:24] [LOG] testFunction - LOG function try out
-    const char *filename = filename_from_path(ccfile);
+    const char* filename = filename_from_path(ccfile);
     std::ostringstream oss;
 
-    oss << "[" << cstrTimestamp << "] "
-        << "[" << filename << ":" << iLine << "] "
-        << "[" << cclevel << "] "
-        << ccfunc;
+    oss << "[" << cstrTimestamp << "] " << "[" << filename << ":" << iLine << "] " << "[" << cclevel << "] " << ccfunc;
 
     if (!cstrMessage.empty())
+    {
         oss << " - " << cstrMessage;
+    }
     oss << std::endl;
 
     return oss.str();
 }
 
-void Logger::printConsole(const std::string &cstrMessage)
+void Logger::printConsole(const std::string& cstrMessage)
 {
-    std::printf(cstrMessage.c_str());
+    std::printf("%s", cstrMessage.c_str());
     std::fflush(stdout);
 }
 
-void Logger::writeToFile(const std::filesystem::path &coPath, const std::string &cstrMessage)
+void Logger::writeToFile(const std::filesystem::path& coPath, const std::string& cstrMessage)
 {
     std::ofstream ofLogFile(coPath, std::ios::app);
     if (ofLogFile)
@@ -139,10 +132,10 @@ void Logger::writeToFile(const std::filesystem::path &coPath, const std::string 
     }
 }
 
-const char *Logger::filename_from_path(const char *cPath)
+const char* Logger::filename_from_path(const char* cPath)
 {
-    const char *file = std::strrchr(cPath, '/');
-    const char *alt = std::strrchr(cPath, '\\');
+    const char* file = std::strrchr(cPath, '/');
+    const char* alt = std::strrchr(cPath, '\\');
     file = std::max(file, alt);
     return file ? file + 1 : cPath;
 }
@@ -195,17 +188,19 @@ const std::string Logger::getTimeStamp(const std::string cstrTimeFormat)
     }
 }
 
-void Logger::rotateLog(const std::filesystem::path &coLogPath)
+void Logger::rotateLog(const std::filesystem::path& coLogPath)
 {
     try
     {
         if (!std::filesystem::exists(coLogPath))
+        {
             return;
+        }
 
         std::string strBasename = coLogPath.stem().string();
         int max_num = 0;
 
-        for (const auto &entry : std::filesystem::directory_iterator(s_cstrLogDir))
+        for (const auto& entry : std::filesystem::directory_iterator(s_cstrLogDir))
         {
             std::string strName = entry.path().filename().string();
             std::regex oPattern(strBasename + R"(\.lo(\d+))");
@@ -217,7 +212,8 @@ void Logger::rotateLog(const std::filesystem::path &coLogPath)
             }
         }
 
-        std::filesystem::path new_name = std::filesystem::path(s_cstrLogDir) / (strBasename + ".lo" + std::to_string(max_num + 1));
+        std::filesystem::path new_name =
+            std::filesystem::path(s_cstrLogDir) / (strBasename + ".lo" + std::to_string(max_num + 1));
         std::filesystem::rename(coLogPath, new_name);
     }
     catch (...)
@@ -225,8 +221,7 @@ void Logger::rotateLog(const std::filesystem::path &coLogPath)
     }
 }
 
-ScopeLogger::ScopeLogger(const char *file, int line, const char *func)
-    : file_(file), line_(line), func_(func)
+ScopeLogger::ScopeLogger(const char* file, int line, const char* func) : file_(file), line_(line), func_(func)
 {
     Logger::instance().logMessage(Elvl::eFull, file_, line_, func_, ">> ENTER");
 }

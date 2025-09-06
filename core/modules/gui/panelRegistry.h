@@ -1,10 +1,9 @@
 #ifndef B4E586A6_6162_4DEA_BD7C_A9FF10DEDE2B
 #define B4E586A6_6162_4DEA_BD7C_A9FF10DEDE2B
 
-#include "iPanel.h"
-#include "panels.h"
 #include "examplePanel.h"
 #include "logPanel.h"
+#include "panels.h"
 
 namespace Gui
 {
