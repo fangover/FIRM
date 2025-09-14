@@ -1,18 +1,17 @@
 #ifndef BAD9F0BF_7264_4D33_83DD_EB18437CB673
 #define BAD9F0BF_7264_4D33_83DD_EB18437CB673
-#include "iPanel.h"
-#include "estring.h"
 #include "candles.h"
+#include "estring.h"
+#include "ipanel.h"
 
 namespace Gui
 {
-
     class CandleChartPanel : public IPanel
     {
     public:
         explicit CandleChartPanel(EString strName) : m_strName(strName) {}
 
-        const EString &name() const override;
+        const EString& name() const override;
         void onInit() override {};
         void onRender() override;
 

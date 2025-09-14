@@ -1,9 +1,9 @@
 #ifndef EXTERNAL_LIB_FILESTREAM_INCLUDE_FILESTREAMHANDLE_H
 #define EXTERNAL_LIB_FILESTREAM_INCLUDE_FILESTREAMHANDLE_H
-#include <iostream>
-#include <fstream>
-#include <string>
 #include <filesystem>
+#include <fstream>
+#include <iostream>
+#include <string>
 
 namespace FileStream
 {
@@ -12,7 +12,7 @@ namespace FileStream
     class FileHandle
     {
     public:
-        explicit FileHandle(const std::string &cstrName, std::ios::openmode mode = std::ios::app);
+        explicit FileHandle(const std::string& cstrName, std::ios::openmode mode = std::ios::app);
 
         ~FileHandle();
 
@@ -20,7 +20,7 @@ namespace FileStream
         void clearFile() const;
 
         template <typename T>
-        FileHandle &operator<<(T &&content)
+        FileHandle& operator<<(T&& content)
         {
             if (m_ofsFile.is_open())
             {
@@ -31,7 +31,7 @@ namespace FileStream
 
         // Variadic template version
         template <typename... Args>
-        void appendFile(Args &&...args)
+        void appendFile(Args&&... args)
         {
             if (m_ofsFile.is_open())
             {
@@ -41,11 +41,11 @@ namespace FileStream
 
         // Batch version for containers
         template <typename Container>
-        void appendFile(const Container &lines)
+        void appendFile(const Container& lines)
         {
             if (m_ofsFile.is_open())
             {
-                for (const auto &line : lines)
+                for (const auto& line : lines)
                 {
                     m_ofsFile << line << '\n';
                 }
@@ -57,5 +57,5 @@ namespace FileStream
         mutable std::ofstream m_ofsFile;
     };
 
-}
+} // namespace FileStream
 #endif // EXTERNAL_LIB_FILESTREAM_INCLUDE_FILESTREAMHANDLE_H

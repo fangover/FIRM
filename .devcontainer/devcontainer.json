@@ -1,0 +1,86 @@
+{
+  "name": "C++ (Clang on Ubuntu)",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "..",
+    "args": {
+      "VARIANT": "ubuntu-24.04"
+    }
+  },
+  "runArgs": [
+    "--cap-add=SYS_PTRACE",
+    "--security-opt=seccomp=unconfined",
+    "--ipc=host"
+  ],
+  "remoteUser": "vscode",
+  "mounts": [
+    "source=vscode-ccache,target=/home/vscode/.cache/ccache,type=volume"
+  ],
+  "containerEnv": {
+    "CC": "clang",
+    "CXX": "clang++",
+    "CMAKE_EXPORT_COMPILE_COMMANDS": "1",
+    "DISPLAY": "host.docker.internal:0.0"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "llvm-vs-code-extensions.vscode-clangd",
+        "ms-vscode.cmake-tools",
+        "ms-vscode.cpptools",
+        "akiramiyakoda.cppincludeguard",
+        "xaver.clang-format",
+        "twxs.cmake",
+        "eamodio.gitlens",
+        "gruntfuggly.todo-tree",
+        "alefragnani.bookmarks",
+        "usernamehw.errorlens"
+      ],
+      "settings": {
+        "C_Cpp.default.cppStandard": "c++23",
+        "C_Cpp.errorSquiggles": "disabled",
+        "C_Cpp.autocomplete": "default",
+        "C_Cpp.exclusionPolicy": "checkFolders",
+        "C_Cpp.intelliSenseEngine": "disabled",
+        "C_Cpp.formatting": "disabled",
+        "cmake.generator": "Ninja",
+        "cmake.buildDirectory": "${workspaceFolder}/build",
+        "cmake.configureSettings": {
+          "CMAKE_C_COMPILER": "clang",
+          "CMAKE_CXX_COMPILER": "clang++",
+          "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+        },
+        "clang-format.executable": "/usr/bin/clang-format",
+        "clang-format.style": "file",
+        "clangd.arguments": [
+          "--compile-commands-dir=${workspaceFolder}/build",
+          "--background-index-priority=normal",
+          "--limit-references=0",
+          "--limit-results=0",
+          "--rename-file-limit=0",
+          "--clang-tidy"
+        ],
+        "clangd.path": "/usr/bin/clangd",
+        "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
+        "editor.formatOnSave": true,
+        "editor.wordWrap": "on",
+        "[cpp]": {
+          "editor.defaultFormatter": "xaver.clang-format"
+        },
+        "search.exclude": {
+          "**/node_modules": true,
+          "**/build": true,
+          "**/dist": true
+        },
+        "files.exclude": {
+          "**/CMakeLists.txt": false
+        },
+        "files.watcherExclude": {
+          "**/build/**": true
+        }
+      }
+    }
+  },
+  "postStartCommand": "/bin/bash -lc 'echo DISPLAY=$DISPLAY; glxinfo -B || true'",
+  "postCreateCommand": "bash .devcontainer/postCreate.sh"
+}

@@ -1,204 +1,73 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-        // CMake: Configure (Ninja)
-        {
-            "label": "CMake: Configure (Ninja)",
-            "type": "shell",
-            "command": "cmake",
-            "args": [
-                "-S",
-                "${workspaceFolder}",
-                "-B",
-                "${workspaceFolder}/build",
-                "-G",
-                "Ninja"
-            ],
-            "options": {
-                "env": {
-                    "PATH": "C:/msys64/ucrt64/bin;${env:PATH}"
-                }
-            },
-            "group": "build",
-            "problemMatcher": [],
-            "presentation": {
-                "reveal": "always"
-            }
-        },
-        // CMake: Build (Ninja)
-        {
-            "label": "CMake: Build (Ninja)",
-            "type": "shell",
-            "command": "cmake",
-            "args": [
-                "--build",
-                "${workspaceFolder}/build",
-                "--config",
-                "Debug"
-            ],
-            "group": "build",
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "dependsOn": "CMake: Configure (Ninja)"
-        },
-        // Run
-        {
-            "label": "Run",
-            "type": "shell",
-            "command": "${workspaceFolder}/build/bin/main.exe",
-            "group": "build",
-            "dependsOn": "CMake: Build (Ninja)",
-            "presentation": {
-                "reveal": "always",
-                "panel": "new"
-            }
-        },
-        // Build & Run
-        {
-            "label": "Build & Run",
-            "dependsOn": [
-                "CMake: Build (Ninja)",
-                "Run"
-            ],
-            "group": "build",
-            "problemMatcher": [],
-            "dependsOrder": "sequence"
-        },
-        // Clean
-        {
-            "label": "Clean",
-            "type": "shell",
-            "command": "powershell",
-            "args": [
-                "-Command",
-                "if (Test-Path ${workspaceFolder}/build) { Remove-Item -Recurse -Force ${workspaceFolder}/build }"
-            ],
-            "group": "build",
-            "problemMatcher": [],
-            "presentation": {
-                "reveal": "always"
-            }
-        },
-        // Rebuild
-        {
-            "label": "Rebuild",
-            "dependsOn": [
-                "Clean",
-                "CMake: Configure (Ninja)",
-                "CMake: Build (Ninja)"
-            ],
-            "group": "build",
-            "dependsOrder": "sequence"
-        },
-        // Rebuild & Run
-        {
-            "label": "Rebuild & Run",
-            "dependsOn": [
-                "Rebuild",
-                "Run"
-            ],
-            "group": "build",
-            "dependsOrder": "sequence"
-        },
-        // Test: Clean build_test
-        {
-            "label": "Test: Clean build_test",
-            "type": "shell",
-            "command": "powershell",
-            "args": [
-                "-Command",
-                "if (Test-Path '${workspaceFolder}/build_test') { Remove-Item -Recurse -Force '${workspaceFolder}/build_test' }"
-            ],
-            "problemMatcher": [],
-            "group": "test"
-        },
-        // Test: Configure (GoogleTest)
-        {
-            "label": "Test: Configure (GoogleTest)",
-            "type": "shell",
-            "command": "cmake",
-            "args": [
-                "-S",
-                "${workspaceFolder}/ExternLib/test",
-                "-B",
-                "${workspaceFolder}/build_test",
-                "-G",
-                "Ninja",
-                "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
-            ],
-            "options": {
-                "env": {
-                    "PATH": "C:/msys64/ucrt64/bin;${env:PATH}"
-                }
-            },
-            "group": "test",
-            "problemMatcher": [],
-            "presentation": {
-                "reveal": "always"
-            }
-        },
-        // Test: Build
-        {
-            "label": "Test: Build",
-            "type": "shell",
-            "command": "cmake",
-            "args": [
-                "--build",
-                "${workspaceFolder}/build_test"
-            ],
-            "group": "build",
-            "dependsOn": "Test: Configure (GoogleTest)",
-            "problemMatcher": [],
-            "presentation": {
-                "reveal": "always"
-            }
-        },
-        // Test: Run All (CTest)
-        {
-            "label": "Test: Run All (CTest)",
-            "type": "shell",
-            "command": "ctest",
-            "args": [
-                "--test-dir",
-                "${workspaceFolder}/build_test",
-                "-j",
-                "8",
-                "--output-on-failure",
-                "--no-tests=error",
-                "-C",
-                "Debug"
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}/build_test"
-            },
-            "group": "test",
-            "dependsOn": "Test: Build",
-            "problemMatcher": []
-        },
-        // Test: Rebuild & Run All
-        {
-            "label": "Test: Rebuild & Run All",
-            "dependsOn": [
-                "Test: Clean build_test",
-                "Test: Configure (GoogleTest)",
-                "Test: Build",
-                "Test: Run All (CTest)"
-            ],
-            "group": "test",
-            "dependsOrder": "sequence",
-            "problemMatcher": []
-        },
-        // Full Clean
-        {
-            "label": "Full Clean",
-            "dependsOn": [
-                "Clean",
-                "Test: Clean build_test",
-            ],
-            "group": "build",
-            "dependsOrder": "sequence",
-            "problemMatcher": []
-        }
-    ]
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Configure",
+      "type": "shell",
+      "command": "${workspaceFolder}/.vscode/scripts/configure.sh",
+      "args": ["build"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": [],
+      "group": "build"
+    },
+    {
+      "label": "Build",
+      "type": "shell",
+      "command": "${workspaceFolder}/.vscode/scripts/build.sh",
+      "args": ["build"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": "$gcc",
+      "dependsOn": ["Configure"],
+      "group": {
+        "kind": "build"
+      }
+    },
+    {
+      "label": "Format",
+      "type": "shell",
+      "command": "${workspaceFolder}/.vscode/scripts/format.sh",
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Clean",
+      "type": "shell",
+      "command": "${workspaceFolder}/.vscode/scripts/clean.sh",
+      "args": ["build"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": [],
+      "group": "build"
+    },
+    {
+      "label": "Full Clean",
+      "type": "shell",
+      "command": "${workspaceFolder}/.vscode/scripts/fullclean.sh",
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Rebuild",
+      "dependsOn": ["Clean", "Configure", "Build"],
+      "dependsOrder": "sequence",
+      "problemMatcher": [],
+      "group": "build"
+    },
+    {
+      "label": "Launch",
+      "type": "shell",
+      "command": "${workspaceFolder}/build/bin/main",
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": [],
+      "group": "build"
+    },
+    {
+      "label": "run (xvfb)",
+      "type": "shell",
+      "command": "xvfb-run -a -s \"-screen 0 1280x720x24\" ${workspaceFolder}/build/bin/main",
+      "dependsOn": "build",
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": [],
+      "group": "build"
+    }
+  ]
 }

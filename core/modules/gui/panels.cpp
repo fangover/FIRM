@@ -1,12 +1,12 @@
+#include "panels.h"
 #include "estring.h"
 #include "imgui.h"
-#include "panels.h"
 
 using namespace Gui;
 
 void Panels::onInits()
 {
-    for (auto &panel : m_panels)
+    for (auto& panel : m_panels)
     {
         panel->onInit();
     }
@@ -15,7 +15,7 @@ void Panels::onInits()
 void Panels::setVisibles()
 {
     ImGui::Begin("Panel Manager");
-    for (auto &panel : m_panels)
+    for (auto& panel : m_panels)
     {
         bool visible = panel->isVisible();
         if (ImGui::Checkbox(panel->name().data(), &visible))
@@ -28,7 +28,7 @@ void Panels::setVisibles()
 
 void Panels::onRenders()
 {
-    for (auto &panel : m_panels)
+    for (auto& panel : m_panels)
     {
         if (!panel->isVisible())
         {

@@ -5,19 +5,12 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-include(FetchContent)
+find_package(GTest CONFIG REQUIRED)
 
-FetchContent_Declare(
-    googletest
-    GIT_REPOSITORY https://github.com/google/googletest.git
-    GIT_TAG v1.14.0
-)
-FetchContent_MakeAvailable(googletest)
-
-function(add_gtest name file)
-    add_executable(${name} ${file})
-    target_link_libraries(${name} gtest_main ExternLib)
-    add_test(NAME ${name} COMMAND ${name})
+function(add_gtest TARGET_NAME FILEPATH)
+  add_executable(${TARGET_NAME} ${FILEPATH})
+  target_link_libraries(${TARGET_NAME} PRIVATE GTest::gtest_main ExternLib)
+  add_test(NAME ${TARGET_NAME} COMMAND ${TARGET_NAME})
 endfunction()
 
 # Add your test

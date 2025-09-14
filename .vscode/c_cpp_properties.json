@@ -1,37 +1,24 @@
 {
-    "configurations": [
-        {
-            "name": "MSYS2 UCRT64",
-            "includePath": [
-                "${workspaceFolder}",
-                "${workspaceFolder}/**",
-                "C:/msys64/ucrt64/include/c++/15.2.0",
-                "C:/msys64/ucrt64/include/c++/15.2.0/x86_64-w64-mingw32",
-                "C:/msys64/ucrt64/include/c++/15.2.0/backward",
-                "C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/15.2.0/include",
-                "C:/msys64/ucrt64/include",
-                "C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/15.2.0/include-fixed"
-            ],
-            "defines": [],
-            "compilerPath": "C:/msys64/ucrt64/bin/g++.exe",
-            "compileCommands": [
-                "${workspaceFolder}/build/compile_commands.json",
-                "${workspaceFolder}/build_test/compile_commands.json"
-            ],
-            "cppStandard": "c++23",
-            "intelliSenseMode": "windows-gcc-x64",
-            "compilerArgs": [
-                "-std=c++23",
-                "-Wall",
-                "--target=x86_64-w64-mingw32",
-                "-I${workspaceFolder}"
-            ],
-            "browse": {
-                "path": [
-                    "C:/msys64/ucrt64/include/**"
-                ]
-            }
-        }
-    ],
-    "version": 4
+  "version": 4,
+  "configurations": [
+    {
+      "name": "Linux (Clang in Dev Container)",
+      "compilerPath": "/usr/bin/clang++",
+      "cStandard": "c17",
+      "cppStandard": "c++23",
+      "intelliSenseMode": "linux-clang-x64",
+      "includePath": [
+        "${workspaceFolder}",
+        "${workspaceFolder}/**"
+      ],
+      "defines": [],
+      "compileCommands": "${workspaceFolder}/build/compile_commands.json",
+      "browse": {
+        "path": [
+          "${workspaceFolder}",
+          "${workspaceFolder}/**"
+        ]
+      }
+    }
+  ]
 }

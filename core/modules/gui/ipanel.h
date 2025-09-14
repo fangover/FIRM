@@ -9,7 +9,7 @@ namespace Gui
     public:
         virtual ~IPanel() = default;
 
-        virtual const EString &name() const = 0;
+        virtual const EString& name() const = 0;
         virtual bool isVisible() const { return m_visible; }
         virtual void setVisible(bool v) { m_visible = v; }
 
