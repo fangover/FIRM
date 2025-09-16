@@ -5,8 +5,6 @@
 #include "imgui.h"
 
 #include "manager.h"
-
-#include "ipanel.h"
 #include "panelRegistry.h"
 
 static GLFWwindow* g_pWindow = nullptr;
