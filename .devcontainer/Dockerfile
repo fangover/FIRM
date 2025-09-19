@@ -12,7 +12,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     clang clangd clang-format lld lldb gdb ccache \
     python3 python3-pip python3-venv python-is-python3 \
     libgtest-dev libglew-dev \
-    libwayland-dev wayland-protocols libxkbcommon-dev libegl1-mesa-dev libgl1-mesa-dev \
+    libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev \
+    libegl1-mesa-dev libgl1-mesa-dev \
     && rm -rf /var/lib/apt/lists/*
 
 RUN install -d -m 700 -o vscode -g vscode /home/vscode/.cache \
@@ -36,7 +37,7 @@ RUN git clone --branch ${GLFW_REF} --depth 1 https://github.com/glfw/glfw.git /o
         -DBUILD_SHARED_LIBS=ON \
         -DGLFW_BUILD_EXAMPLES=OFF -DGLFW_BUILD_TESTS=OFF -DGLFW_BUILD_DOCS=OFF \
         -DGLFW_INSTALL=ON \
-        -DGLFW_BUILD_WAYLAND=ON -DGLFW_BUILD_X11=OFF \
+        -DGLFW_BUILD_X11=ON -DGLFW_BUILD_WAYLAND=OFF \
     && cmake --build /opt/glfw/build --target install -j"$(nproc)" \
     && rm -rf /opt/glfw && ldconfig
 

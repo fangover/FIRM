@@ -61,13 +61,13 @@
       "group": "build"
     },
     {
-      "label": "run (xvfb)",
+      "label": "Launch",
       "type": "shell",
-      "command": "xvfb-run -a -s \"-screen 0 1280x720x24\" ${workspaceFolder}/build/bin/main",
-      "dependsOn": "build",
+      "command": "${workspaceFolder}/build/bin/main",
+      "dependsOn": ["Build"],               // ensures binary is built
       "options": { "cwd": "${workspaceFolder}" },
       "problemMatcher": [],
-      "group": "build"
+      "group": { "kind": "test", "isDefault": true } // treat as "run"
     }
   ]
 }

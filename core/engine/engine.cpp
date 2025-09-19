@@ -6,8 +6,6 @@
 #include <modules/gui/manager.h>
 #include <strategies/example/detector.h>
 
-#include "modules/gui/panelRegistry.h"
-
 namespace engine
 {
     void Engine::initialize()

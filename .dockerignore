@@ -1,5 +1,24 @@
+.DS_Store
+# build outputs & local junk
 build/
 build_*/
-.vscode/
+dist/
+out/
 .git/
-.DS_Store
+.vscode/
+.vscode-server/
+.vscode-test/
+.cache/
+.ccache/
+*.o
+*.obj
+*.a
+*.lib
+*.dll
+*.dylib
+*.so
+*.pch
+*.pdb
+node_modules/
+**/__pycache__/
+*.log
