@@ -1,5 +1,5 @@
-#include <launcher.h>
 #include <engine/Engine.h>
+#include <launcher.h>
 
 namespace app
 {
@@ -9,4 +9,4 @@ namespace app
         engine.initialize();
         engine.runLoop();
     }
-}
+} // namespace app

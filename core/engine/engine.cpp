@@ -2,11 +2,9 @@
 
 #include <eglobalregistry.h>
 
-#include <modules/gui/manager.h>
 #include <common/globalEnum.h>
+#include <modules/gui/manager.h>
 #include <strategies/example/detector.h>
-
-#include "modules/gui/panelRegistry.h"
 
 namespace engine
 {
@@ -36,4 +34,4 @@ namespace engine
         }
         m_pGuiManager->shutDown();
     }
-}
+} // namespace engine

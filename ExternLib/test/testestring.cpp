@@ -1,6 +1,6 @@
 
-#include <gtest/gtest.h>
 #include "../include/log.h"
+#include <gtest/gtest.h>
 
 TEST(LoggerTest, CanLogMessage)
 {

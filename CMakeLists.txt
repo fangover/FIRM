@@ -1,13 +1,12 @@
 cmake_minimum_required(VERSION 3.20)
-project(FIRM LANGUAGES CXX)
+project(FIRM LANGUAGES C CXX)
 
 # C++ standard
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-
-# Compiler flags
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # Apply warning flags only to C++ sources to avoid breaking C libraries
 add_compile_options(
     $<$<COMPILE_LANGUAGE:CXX>:-Wall>
@@ -31,8 +30,6 @@ include(cmake/pch/pch.cmake)
 
 enable_testing()
 
-find_package(OpenGL REQUIRED)
-find_package(OpenGL REQUIRED)
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/dependencies.cmake)
 
 # Global include
@@ -41,6 +38,6 @@ include_directories(
 )
 
 # Add subdirectories
-add_subdirectory(ExternLib)
-add_subdirectory(Core)
-add_subdirectory(App)
+add_subdirectory(externlib)
+add_subdirectory(core)
+add_subdirectory(app)

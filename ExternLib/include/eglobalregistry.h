@@ -1,17 +1,17 @@
 #ifndef B76F388E_B85C_46A0_9F66_DADA42108026
 #define B76F388E_B85C_46A0_9F66_DADA42108026
 
+#include <iostream>
 #include <memory>
 #include <mutex>
-#include <unordered_map>
 #include <typeindex>
-#include <iostream>
+#include <unordered_map>
 
 class EGlobalRegistry
 {
 public:
     template <typename T, typename... Args>
-    static std::shared_ptr<T> emplace(Args &&...args)
+    static std::shared_ptr<T> emplace(Args&&... args)
     {
         std::lock_guard<std::mutex> lock(mMutex);
         auto instance = std::make_shared<T>(std::forward<Args>(args)...);

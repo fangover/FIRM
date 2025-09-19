@@ -1,7 +1,5 @@
 #ifndef D13ED700_2880_4408_BA93_33D6DE08BB90
 #define D13ED700_2880_4408_BA93_33D6DE08BB90
-#ifndef A18D02B8_8122_4859_BAC6_913B61883A8A
-#define A18D02B8_8122_4859_BAC6_913B61883A8A
 #include <memory>
 #include <utility>
 #include <vector>
@@ -19,12 +17,14 @@ namespace Gui
         explicit Panels(PanelList panels) : m_panels(std::move(panels)) {}
 
         template <typename T>
-        T *getPanel() const
+        T* getPanel() const
         {
-            for (auto &p : m_panels)
+            for (auto& p : m_panels)
             {
-                if (typeid(*p) == typeid(T))
-                    return static_cast<T *>(p.get());
+                if (auto* hit = dynamic_cast<T*>(p.get()))
+                {
+                    return hit;
+                }
             }
             return nullptr;
         }
@@ -40,7 +40,5 @@ namespace Gui
     };
 
 } // namespace Gui
-
-#endif /* A18D02B8_8122_4859_BAC6_913B61883A8A */
 
 #endif /* D13ED700_2880_4408_BA93_33D6DE08BB90 */

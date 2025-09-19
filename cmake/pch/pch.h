@@ -2,43 +2,43 @@
 #define B532D695_3C29_4A9F_B66B_D6C8F681EDC4
 
 // ==== Standard Library ====
-#include <iostream>
+#include <any>
+#include <array>
+#include <atomic>
+#include <cassert>
+#include <chrono>
+#include <deque>
 #include <fstream>
-#include <vector>
+#include <functional>
+#include <iostream>
+#include <list>
+#include <map>
+#include <memory>
+#include <mutex>
+#include <optional>
+#include <queue>
+#include <random>
+#include <set>
+#include <shared_mutex>
+#include <span>
+#include <stack>
+#include <stdexcept>
 #include <string>
+#include <thread>
+#include <tuple>
+#include <type_traits>
 #include <unordered_map>
 #include <unordered_set>
-#include <map>
-#include <set>
-#include <queue>
-#include <stack>
-#include <list>
-#include <deque>
-#include <array>
-#include <tuple>
-#include <any>
 #include <utility>
-#include <type_traits>
-#include <cassert>
-#include <stdexcept>
-#include <functional>
-#include <random>
-#include <memory>
-#include <thread>
-#include <chrono>
-#include <mutex>
-#include <shared_mutex>
-#include <atomic>
-#include <optional>
 #include <variant>
-#include <span>
+#include <vector>
 
 // ==== Project Headers ====
 
 // externallib
-#include <log.h>
-#include <estring.h>
 #include <eresult.h>
 #include <eresultvalue.h>
+#include <estring.h>
+#include <log.h>
 
 #endif /* B532D695_3C29_4A9F_B66B_D6C8F681EDC4 */

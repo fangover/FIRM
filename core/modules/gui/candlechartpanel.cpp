@@ -5,11 +5,9 @@
 
 using namespace Gui;
 
-const EString &CandleChartPanel::name() const
+const EString& CandleChartPanel::name() const
 {
     return m_strName;
 }
 
-void CandleChartPanel::onRender()
-{
-}
+void CandleChartPanel::onRender() {}
