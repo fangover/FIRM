@@ -1,12 +1,13 @@
 #ifndef EC041CB6_6FF5_45E9_9157_0C2F01B0A805
 #define EC041CB6_6FF5_45E9_9157_0C2F01B0A805
+#include <cstring>
 #include <iostream>
 #include <regex>
 #include <sstream>
 #include <string>
 #include <type_traits>
 #include <utility>
-#include <vector>
+
 
 class EString
 {
@@ -48,6 +49,69 @@ public:
 
     inline operator const std::string&() const { return m_value; }
     inline operator std::string_view() const { return m_value; }
+
+    EString& append(const EString& str)
+    {
+        m_value.append(str);
+        return *this;
+    }
+
+    EString& append(const char* str)
+    {
+        if (str)
+        {
+            m_value.append(str);
+        }
+        return *this;
+    }
+
+    template <typename T>
+    EString& operator<<(const T& value)
+    {
+        if constexpr (std::is_same_v<T, EString>)
+        {
+            m_value.append(value.c_str());
+        }
+        else
+        {
+            std::ostringstream oss;
+            oss << value;
+            m_value.append(oss.str());
+        }
+        return *this;
+    }
+
+    EString& operator+=(const EString& rhs)
+    {
+        m_value.append(rhs.m_value);
+        return *this;
+    }
+
+    EString& operator+=(const char* rhs)
+    {
+        if (rhs)
+        {
+            m_value.append(rhs);
+        }
+        return *this;
+    }
+
+    friend EString operator+(const EString& lhs, const EString& rhs) { return EString(lhs.m_value + rhs.m_value); }
+
+    friend EString operator+(const EString& lhs, const char* rhs)
+    {
+        return EString(lhs.m_value + (rhs ? std::string(rhs) : ""));
+    }
+
+    friend EString operator+(const char* lhs, const EString& rhs)
+    {
+        return EString((lhs ? std::string(lhs) : "") + rhs.m_value);
+    }
+
+    void clear() { m_value.clear(); }
+    bool empty() const noexcept { return m_value.empty(); }
+
+    bool operator<(const EString& other) const { return std::strcmp(m_value.c_str(), other.m_value.c_str()) < 0; }
 };
 
 template <typename T>

@@ -13,6 +13,7 @@ target_include_directories(engine PUBLIC
 target_link_libraries(engine
     PRIVATE
         common
+        CoreModulesBot
         CoreModulesGui
         CoreStrategiesExample
         ExternLib
