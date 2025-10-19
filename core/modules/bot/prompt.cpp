@@ -1,15 +1,21 @@
 #include "prompt.h"
 #include "log.h"
+#include <string>
 
 using namespace Bot;
 
-PromptSectionList::PromptSectionList(const EString& title, bool numbered) : m_title(title), m_numbered(numbered) {}
+PromptSectionList::PromptSectionList(const std::string& title, bool numbered) : m_title(title), m_numbered(numbered) {}
 
-PromptSectionList& PromptSectionList::add(const EString& item)
+PromptSectionList& PromptSectionList::add(const std::string& item)
 {
     LOG_ENTRY;
 
-    m_items.push_back(item);
+    auto it = std::find(m_items.begin(), m_items.end(), item);
+    if (it == m_items.end())
+    {
+        m_items.push_back(item);
+    }
+
     return *this;
 }
 
@@ -23,7 +29,7 @@ bool PromptSectionList::empty() const
     return m_items.empty();
 }
 
-const EString& PromptSectionList::title() const
+const std::string& PromptSectionList::title() const
 {
     return m_title;
 }
@@ -33,12 +39,12 @@ bool PromptSectionList::isNumbered() const
     return m_numbered;
 }
 
-std::list<EString>::const_iterator PromptSectionList::begin() const
+std::list<std::string>::const_iterator PromptSectionList::begin() const
 {
     return m_items.begin();
 }
 
-std::list<EString>::const_iterator PromptSectionList::end() const
+std::list<std::string>::const_iterator PromptSectionList::end() const
 {
     return m_items.end();
 }
@@ -71,7 +77,7 @@ PromptGenerator::SectionProxy::SectionProxy(PromptSectionList& section, PromptGe
 {
 }
 
-PromptGenerator::SectionProxy& PromptGenerator::SectionProxy::add(const EString& item)
+PromptGenerator::SectionProxy& PromptGenerator::SectionProxy::add(const std::string& item)
 {
     LOG_ENTRY;
     m_section.add(item);
@@ -84,7 +90,7 @@ PromptGenerator::SectionProxy::operator PromptSectionList&()
     return m_section;
 }
 
-PromptGenerator::PromptGenerator(const EString& name,
+PromptGenerator::PromptGenerator(const std::string& name,
                                  const std::string& configFile,
                                  std::shared_ptr<Serialization::JsonApi> jsonApi)
     : m_name(name)
@@ -94,7 +100,7 @@ PromptGenerator::PromptGenerator(const EString& name,
     loadFromJson();
 }
 
-PromptGenerator::SectionProxy PromptGenerator::addSection(const EString& title, bool numbered)
+PromptGenerator::SectionProxy PromptGenerator::addSection(const std::string& title, bool numbered)
 {
     LOG_ENTRY;
 
@@ -108,28 +114,28 @@ PromptGenerator::SectionProxy PromptGenerator::addSection(const EString& title, 
     return SectionProxy(it->second, *this);
 }
 
-EString PromptGenerator::generate() const
+std::string PromptGenerator::generate() const
 {
     LOG_ENTRY;
 
-    EString genStr;
-    genStr.sprintf("Your name is %s.\n\n", m_name.data());
+    std::string genStr = EString::sprintf("Your name is %s.\n\n", m_name.data());
 
-    auto appendSection = [](EString& out, const PromptSectionList& section)
+    auto appendSection = [](std::string& out, const PromptSectionList& section)
     {
         if (section.empty())
         {
             return;
         }
-
-        out << "--- " << section.title() << " START ---\n";
+        std::ostringstream oss;
+        oss << "--- " << section.title() << " START ---\n";
         int i = 1;
         for (const auto& s : section)
         {
-            EString prefix = section.isNumbered() ? toStr(i++) + ". " : "- ";
-            out << prefix << s << "\n";
+            std::string prefix = section.isNumbered() ? std::to_string(i++) + ". " : "- ";
+            oss << prefix << s << "\n";
         }
-        out << "--- " << section.title() << " END ---\n\n";
+        oss << "--- " << section.title() << " END ---\n\n";
+        out += oss.str();
     };
 
     for (const auto& [title, section] : m_sections)

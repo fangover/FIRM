@@ -7,6 +7,7 @@ ENV CC=clang CXX=clang++ \
     CCACHE_DIR=/home/vscode/.cache/ccache \
     CCACHE_MAXSIZE=5G
 
+# TODO remove nlohmann in the future.
 RUN apt-get update && apt-get install -y --no-install-recommends \
     bash build-essential git curl ca-certificates pkg-config cmake ninja-build \
     clang clangd clang-format lld lldb gdb ccache \
@@ -14,7 +15,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libgtest-dev libglew-dev \
     libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev \
     libegl1-mesa-dev libgl1-mesa-dev \
-    nlohmann-json3-dev \
+    nlohmann-json3-dev rapidjson-dev \
     && rm -rf /var/lib/apt/lists/*
 
 RUN install -d -m 700 -o vscode -g vscode /home/vscode/.cache \

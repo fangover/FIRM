@@ -15,11 +15,14 @@ target_link_libraries(engine
         common
         CoreModulesBot
         CoreModulesGui
+        CoreModulesSerialization
+        CoreModulesChatGpt
         CoreStrategiesExample
         ExternLib
         imgui
         glfw
         OpenGL::GL
+        CURL::libcurl 
 )
 
 target_precompile_headers(engine PRIVATE "${CMAKE_SOURCE_DIR}/cmake/pch/pch.h")

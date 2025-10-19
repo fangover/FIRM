@@ -1,7 +1,6 @@
 #ifndef FD1924ED_E394_44AD_B55A_22B433380EE7
 #define FD1924ED_E394_44AD_B55A_22B433380EE7
 
-class EString;
 namespace Gui
 {
     class IPanel
@@ -9,7 +8,7 @@ namespace Gui
     public:
         virtual ~IPanel() = default;
 
-        virtual const EString& name() const = 0;
+        virtual const std::string& name() const = 0;
         virtual bool isVisible() const { return m_visible; }
         virtual void setVisible(bool v) { m_visible = v; }
 

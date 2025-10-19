@@ -1,10 +1,12 @@
 #ifndef EXTERNAL_LIB_FILESTREAM_INCLUDE_FILESTREAMHANDLE_H
 #define EXTERNAL_LIB_FILESTREAM_INCLUDE_FILESTREAMHANDLE_H
-#include <filesystem>
+
+#include "eresult.h"
 #include <fstream>
 #include <iostream>
 #include <string>
 
+class EResult;
 namespace FileStream
 {
     constexpr char Endl[] = "\n";
@@ -16,8 +18,9 @@ namespace FileStream
 
         ~FileHandle();
 
-        void readFile() const;
+        EResult readFile() const;
         void clearFile() const;
+        EResult getContent(std::string& content) const;
 
         template <typename T>
         FileHandle& operator<<(T&& content)

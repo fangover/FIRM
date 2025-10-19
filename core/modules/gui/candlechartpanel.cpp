@@ -2,7 +2,7 @@
 
 using namespace Gui;
 
-const EString& CandleChartPanel::name() const
+const std::string& CandleChartPanel::name() const
 {
     return m_strName;
 }

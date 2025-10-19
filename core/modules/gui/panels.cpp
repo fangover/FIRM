@@ -1,5 +1,4 @@
 #include "panels.h"
-#include "estring.h"
 #include "imgui.h"
 
 using namespace Gui;

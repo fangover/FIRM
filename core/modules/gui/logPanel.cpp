@@ -4,7 +4,7 @@
 
 using namespace Gui;
 
-const EString& LogPanel::name() const
+const std::string& LogPanel::name() const
 {
     return m_strName;
 }
@@ -17,8 +17,6 @@ void LogPanel::onInit()
     for (Elvl elevel : m_lstSelectableLevels)
     {
         m_lstLevelNames.push_back(toUser(elevel));
-        LOG(EString().sprintf("Raw Elvl int value %d", static_cast<int>(elevel)));
-        LOG(EString().sprintf("String %s", toUser(elevel).data()));
     }
 }
 
