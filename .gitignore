@@ -1,7 +1,6 @@
 # --- Build Artifacts ---
 /out
 /build
-/build_test
 /build_gtest
 *.exe               # Compiled binaries
 *.dll               # Dynamic link libraries
@@ -9,6 +8,7 @@ CMakeFiles/
 CMakeCache.txt
 imgui.ini
 .cache/
+.config
 
 # --- Dependency ---
 dependency

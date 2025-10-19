@@ -6,7 +6,6 @@
 
 #include "ipanel.h"
 
-class EString;
 namespace Gui
 {
     class Panels
@@ -36,6 +35,11 @@ namespace Gui
         void onRenders();
 
     private:
+        Panels(const Panels&) = delete;
+        Panels& operator=(const Panels&) = delete;
+        Panels(Panels&&) = delete;
+        Panels& operator=(Panels&&) = delete;
+
         PanelList m_panels;
     };
 

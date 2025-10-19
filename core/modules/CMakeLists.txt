@@ -29,4 +29,7 @@ function(add_module TARGET_NAME SRC_DIR)
     )
 endfunction()
 
-add_module(CoreModulesGui Gui)
+add_module(CoreModulesGui gui)
+add_module(CoreModulesSerialization serialization)
+add_module(CoreModulesChatGpt chatgpt)
+add_module(CoreModulesBot bot)

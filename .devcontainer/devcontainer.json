@@ -35,7 +35,8 @@
         "eamodio.gitlens",
         "gruntfuggly.todo-tree",
         "alefragnani.bookmarks",
-        "usernamehw.errorlens"
+        "usernamehw.errorlens",
+        "emeraldwalk.runonsave"
       ],
       "settings": {
         "C_Cpp.default.cppStandard": "c++23",
@@ -64,9 +65,17 @@
         "clangd.path": "/usr/bin/clangd",
         "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
         "editor.formatOnSave": true,
-        "editor.wordWrap": "on",
+        "editor.wordWrap": "off",
         "[cpp]": {
           "editor.defaultFormatter": "xaver.clang-format"
+        },
+        "emeraldwalk.runonsave": {
+          "commands": [
+            {
+              "match": "CMakeLists\\.txt$",
+              "cmd": "bash ${workspaceFolder}/.vscode/scripts/configure.sh build"
+            }
+          ]
         },
         "search.exclude": {
           "**/node_modules": true,
@@ -82,5 +91,5 @@
       }
     }
   },
-  "postCreateCommand": "bash .devcontainer/postCreate.sh"
+  "postCreateCommand": ".devcontainer/postCreate.sh"
 }

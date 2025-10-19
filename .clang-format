@@ -22,7 +22,10 @@ BinPackArguments: false
 BinPackParameters: false
 BreakBeforeBraces: Allman
 BreakBeforeTernaryOperators: true
+BreakInheritanceList: BeforeComma
 BreakConstructorInitializers: BeforeComma
+BreakConstructorInitializersBeforeComma: true
+BreakStringLiterals: true
 ColumnLimit: 120
 CompactNamespaces: true
 ConstructorInitializerAllOnOneLineOrOnePerLine: true

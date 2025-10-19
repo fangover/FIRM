@@ -50,8 +50,8 @@ public:
     static Logger& instance();
 
     static void logMessage(Elvl level, const char*, int, const char*, const char* = "", ...);
-    static void logMessage(Elvl level, const char* file, int line, const char* func, const EString& msg);
-    static std::deque<EString>& getRecentLogs();
+    static void logMessage(Elvl level, const char* file, int line, const char* func, const std::string& msg);
+    static std::deque<std::string>& getRecentLogs();
     static void clearRecentLogs();
 
     static void setCurrentLogLevel(const Elvl);
@@ -75,7 +75,7 @@ private:
     static constexpr std::string_view s_cstrLogDir = "build/out/log";
     static constexpr size_t s_ciMaxLogSize = 5 * 1024 * 1024;
 
-    static inline std::deque<EString> s_recentLogs;
+    static inline std::deque<std::string> s_recentLogs;
     static constexpr size_t s_maxRecentLogs = 1000;
 
     static inline Elvl s_eRuntimeLogLevel = Elvl::eAlways;

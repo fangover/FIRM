@@ -15,6 +15,11 @@ namespace Gui
         bool shouldClose() const;
 
     private:
+        Manager(const Manager&) = delete;
+        Manager& operator=(const Manager&) = delete;
+        Manager(Manager&&) = delete;
+        Manager& operator=(Manager&&) = delete;
+
         // Panels m_lstPanels;
         Panels m_panels;
     };

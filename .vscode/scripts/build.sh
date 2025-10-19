@@ -6,3 +6,7 @@ target="${TARGET:-}"
 jobs="${JOBS:-$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || echo 8)}"
 
 cmake --build "$build_dir" ${target:+--target "$target"} -j "$jobs"
+
+if [ -e ".config" ]; then
+  cp -r .config "$build_dir/"
+fi

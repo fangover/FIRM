@@ -37,7 +37,7 @@ void Logger::logMessage(Elvl elevel, const char* cpFile, int ciLine, const char*
 
     strMessage = formatLogMessage(timestamp, toUser(elevel).c_str(), cpFile, ciLine, cpfunc, strMessage);
 
-    s_recentLogs.push_back(EString(strMessage));
+    s_recentLogs.push_back(strMessage);
     if (s_recentLogs.size() > s_maxRecentLogs)
     {
         s_recentLogs.pop_front();
@@ -51,12 +51,12 @@ void Logger::logMessage(Elvl elevel, const char* cpFile, int ciLine, const char*
     }
 }
 
-void Logger::logMessage(Elvl level, const char* file, int line, const char* func, const EString& msg)
+void Logger::logMessage(Elvl level, const char* file, int line, const char* func, const std::string& msg)
 {
     logMessage(level, file, line, func, msg.data());
 }
 
-std::deque<EString>& Logger::getRecentLogs()
+std::deque<std::string>& Logger::getRecentLogs()
 {
     std::lock_guard<std::mutex> lock(s_logMutex);
     return s_recentLogs;

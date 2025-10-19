@@ -5,7 +5,8 @@
 #include <iostream>
 #include <string>
 
-#include "../include/FileStreamHandle.h"
+#include "eresult.h"
+#include "filestreamhandle.h"
 
 using namespace FileStream;
 
@@ -34,24 +35,15 @@ FileHandle::~FileHandle()
     }
 }
 
-void FileHandle::readFile() const
+EResult FileHandle::readFile() const
 {
     LOG_ENTRY;
 
-    if (m_ofsFile.is_open())
-    {
-        m_ofsFile.flush(); // Ensure all buffered data is written
-    }
+    std::string content;
+    TRY(getContent(content));
+    LOG(content);
 
-    std::ifstream inFile(m_strFileName);
-    TRY(inFile.is_open());
-
-    std::string line;
-    while (std::getline(inFile, line))
-    {
-        std::cout << line << std::endl;
-    }
-    inFile.close();
+    return EResult::ok();
 }
 
 void FileHandle::clearFile() const
@@ -61,4 +53,24 @@ void FileHandle::clearFile() const
     std::ofstream ofs;
     ofs.open(m_strFileName, std::ofstream::out | std::ofstream::trunc);
     ofs.close();
+}
+
+EResult FileHandle::getContent(std::string& content) const
+{
+    LOG_ENTRY;
+
+    if (m_ofsFile.is_open())
+    {
+        m_ofsFile.flush();
+    }
+
+    std::ifstream inFile(m_strFileName, std::ios::in | std::ios::binary);
+    TRY(inFile.is_open(), "File not open!");
+
+    std::ostringstream ss;
+    ss << inFile.rdbuf();
+    content = ss.str();
+    inFile.close();
+
+    return EResult::ok();
 }

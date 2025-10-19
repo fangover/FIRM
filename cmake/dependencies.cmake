@@ -29,3 +29,4 @@ endif()
 target_link_libraries(imgui PUBLIC glfw ${_OPENGL_TARGET})
 
 find_package(GTest REQUIRED)
+find_package(CURL REQUIRED)

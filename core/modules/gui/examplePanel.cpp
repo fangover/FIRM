@@ -1,12 +1,10 @@
-#include "backends/imgui_impl_glfw.h"
-#include "backends/imgui_impl_opengl3.h"
+#include "imgui.h"
 
 #include "examplePanel.h"
-#include "ipanel.h"
 
 using namespace Gui;
 
-const EString& ExamplePanel::name() const
+const std::string& ExamplePanel::name() const
 {
     return m_strName;
 }

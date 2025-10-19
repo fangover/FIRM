@@ -3,20 +3,19 @@
 
 #include "ipanel.h"
 
-class EString;
 namespace Gui
 {
     class ExamplePanel : public IPanel
     {
     public:
-        explicit ExamplePanel(EString strName) : m_strName(strName) {}
+        explicit ExamplePanel(std::string strName) : m_strName(strName) {}
 
-        const EString& name() const override;
+        const std::string& name() const override;
         void onInit() override {};
         void onRender() override;
 
     private:
-        EString m_strName;
+        std::string m_strName;
     };
 
 } // namespace Gui

@@ -60,14 +60,5 @@
       "problemMatcher": [],
       "group": "build"
     },
-    {
-      "label": "Launch",
-      "type": "shell",
-      "command": "${workspaceFolder}/build/bin/main",
-      "dependsOn": ["Build"],               // ensures binary is built
-      "options": { "cwd": "${workspaceFolder}" },
-      "problemMatcher": [],
-      "group": { "kind": "test", "isDefault": true } // treat as "run"
-    }
   ]
 }

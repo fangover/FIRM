@@ -4,6 +4,6 @@
 
 TEST(LoggerTest, CanLogMessage)
 {
-    LOG("wtd");
+    LOG("Hello test");
     SUCCEED(); // We just test that it runs without crashing
 }
