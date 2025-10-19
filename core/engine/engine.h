@@ -17,11 +17,6 @@ namespace engine
         void runLoop();
 
     private:
-        Engine(const Engine&) = delete;
-        Engine& operator=(const Engine&) = delete;
-        Engine(Engine&&) = delete;
-        Engine& operator=(Engine&&) = delete;
-
         ThreadManager m_threadManager;
         std::unique_ptr<Gui::Manager> m_guiManager;
         std::atomic<bool> m_running{ true };

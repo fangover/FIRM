@@ -12,7 +12,8 @@ namespace Bot
     class PromptSectionList
     {
     public:
-        explicit PromptSectionList(const std::string& title, bool numbered);
+        PromptSectionList() = default;
+        PromptSectionList(const std::string& title, bool numbered);
 
         PromptSectionList& add(const std::string& item);
 
@@ -29,11 +30,6 @@ namespace Bot
         void fromJson(const nlohmann::json& j);
 
     private:
-        PromptSectionList(const PromptSectionList&) = delete;
-        PromptSectionList& operator=(const PromptSectionList&) = delete;
-        PromptSectionList(PromptSectionList&&) = delete;
-        PromptSectionList& operator=(PromptSectionList&&) = delete;
-
         std::string m_title;
         bool m_numbered{ false };
         std::list<std::string> m_items;
@@ -62,11 +58,6 @@ namespace Bot
         std::string generate() const;
 
     private:
-        PromptGenerator(const PromptGenerator&) = delete;
-        PromptSectionList& operator=(const PromptGenerator&) = delete;
-        PromptGenerator(PromptGenerator&&) = delete;
-        PromptGenerator& operator=(PromptGenerator&&) = delete;
-
         void saveToJson() const;
         void loadFromJson();
         void autoSave();
